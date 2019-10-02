@@ -1,0 +1,87 @@
+@import 'ui-framework/ui';
+@import '~cropperjs/dist/cropper.min.css';
+
+:local(.container) {
+    .cropper-container {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .cropper-view-box,
+    .cropper-crop-box {
+        border-radius: 50%;
+    }
+
+    .cropper-view-box {
+        outline: 0;
+    }
+
+    .image-to-edit {
+        max-width: 100%;
+    }
+
+    .modal-dialog {
+        max-height: calc(90vh);
+        max-width: 60vw;
+        @include media-breakpoint-down(md, $grid-breakpoints) {
+            max-width: 60vw;
+        }
+        @include media-breakpoint-down(sm, $grid-breakpoints) {
+            max-width: 90vw;
+        }
+    }
+    .modal-title {
+        padding-top: 1rem;
+    }
+    .modal-body {
+        padding: 1rem 30px;
+    }
+    .modal-footer {
+        border-top: none;
+        padding: 0 30px 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .btn-group + .btn-group {
+            margin-left: 2rem;
+        }
+
+        .btn-cancel {
+            margin-right: 1rem;
+            @include media-breakpoint-down(md, $grid-breakpoints) {
+                margin-right: 0.25rem;
+            }
+        }
+        :not(:first-child) {
+            margin-left: 0;
+        }
+        @include media-breakpoint-down(md, $grid-breakpoints) {
+            flex-direction: column;
+            align-items: unset;
+            justify-content: unset;
+            .btn-group {
+                margin-top: 0.5em;
+                margin-left: 0.5rem;
+            }
+            .btn-group + .btn-group {
+                margin-left: 0.5rem;
+            }
+        }
+
+        .cropper-actions {
+            @include media-breakpoint-down(md, $grid-breakpoints) {
+                display: flex;
+                flex-wrap: wrap;
+                margin-left: -0.5rem;
+            }
+        }
+    }
+
+    .cropper-tooltip-inner {
+        background-color: rgba($dark, 0.6);
+        color: #fff;
+    }
+    .cropper-tooltip-arrow {
+        background-color: rgba($dark, 0.6);
+    }
+}

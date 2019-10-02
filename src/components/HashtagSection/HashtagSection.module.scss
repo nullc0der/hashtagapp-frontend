@@ -1,0 +1,78 @@
+@import 'ui-framework/ui';
+
+:local(.container) {
+    color: rgba($dark, 0.7);
+    height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .app-name {
+        &:after {
+            content: '';
+            border-bottom: 2px solid rgba($dark, 0.7);
+            width: 100px;
+            display: block;
+            margin: 0.5rem auto 0 auto;
+        }
+    }
+    .preview-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .arrow {
+            margin: 0 4rem;
+        }
+    }
+    .btn-upload-local {
+        position: relative;
+        .input-file {
+            cursor: pointer;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            opacity: 0;
+            z-index: 2;
+        }
+    }
+    .actions {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .btn {
+            cursor: pointer;
+            margin: 0 map-get($spacers, 2);
+            min-width: 250px;
+        }
+        &:not(.final-actions) {
+            flex-wrap: wrap;
+        }
+        &:not(.final-actions) > .btn {
+            flex: 1;
+            flex-grow: 0;
+            flex-shrink: 0;
+        }
+        .fas,
+        .fab {
+            margin-left: 0.5rem;
+        }
+        .btn-download,
+        .btn-upload-social,
+        .btn-start-over {
+            text-decoration: none;
+            color: $light;
+            &:hover,
+            &:visited,
+            &:focus {
+                color: $light;
+            }
+        }
+        .btn-start-over {
+            &:hover {
+                background-color: $primary;
+                border: 1px solid $primary;
+            }
+        }
+    }
+}

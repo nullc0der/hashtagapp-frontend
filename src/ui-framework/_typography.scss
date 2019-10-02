@@ -1,0 +1,47 @@
+
+
+@mixin _typography-heading-jumbo(){
+	font-weight: $font-weight-extra-bold;
+	font-size:   ($font-size-base*4) + 2;
+	line-height: 77px;
+}
+
+@mixin _typography-h1(){
+	font-weight: $font-weight-bold;
+	font-size: (50/16) * 1rem;		// 50px
+	line-height: 55px;
+}
+
+@mixin _typography-h2(){
+	font-weight: $font-weight-bold;
+	font-size: (37/16) * 1rem; 		// 37px
+	line-height: 44px;
+}
+
+@mixin _typography-h3() {
+	font-weight: $font-weight-bold;
+	font-size: (28px/16px)*1rem;  	// 28px
+	line-height: 33px;
+}
+
+@mixin _typography-h4() {
+	font-weight: $font-weight-bold;
+	font-size: (21px/16px)*1rem; 	// 21px
+	line-height: 25px;
+}
+
+@mixin _typography-h5() {
+	font-weight: $font-weight-bold;
+	font-size: $font-size-base;		// 16px
+}
+
+@mixin _typography-label() {
+	font-size: (12px/16px)*1rem; 	// 12px
+	line-height: 14px;
+}
+
+@mixin _typography-link(){
+	font-weight: $font-weight-bold;
+	font-size: $font-size-base;
+	color: $link-color;
+}

@@ -1,0 +1,102 @@
+// Override Spacing used
+$spacer: 1rem; // 1rem = 16px in most carowsers
+// We need a scale of 8
+// 0, 8, 16, 32, 48, 64, 128
+$spacers: (
+    0: 0,
+    1: (
+        $spacer * 0.5
+    ),
+    2: $spacer,
+    3: (
+        $spacer * 2
+    ),
+    4: (
+        $spacer * 3
+    ),
+    5: (
+        $spacer * 4
+    ),
+    6: (
+        $spacer * 5
+    ),
+    7: (
+        $spacer * 6
+    )
+);
+
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px
+) !default;
+
+// Colors
+$primary: #fdc800;
+$secondary: #ffe920;
+
+// System Colors
+$success: #28cf5f;
+$info: #2ac7e9;
+$warning: #eda826;
+$danger: #ff3232;
+
+// Shades
+$lighter: #ffffff;
+$light: #f6f6f6;
+$dark: #273951;
+$darker: #000000;
+
+// $link-color: #EF0C7D;
+$link-color: $primary;
+
+// Override font system
+$font-family-sans-serif: 'Raleway', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol';
+
+$font-size-base: (14/16) * 1rem;
+
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extra-bold: 900;
+
+$h1-font-size: 3.125rem; // 50px
+$h2-font-size: 2.3125rem; // 37px
+$h3-font-size: 1.75rem; // 28px
+$h4-font-size: 1.3125rem; // 21px
+
+$headings-font-weight: 700;
+
+$btn-font-weight: $font-weight-bold;
+
+$input-btn-padding-y: map-get($spacers, 1);
+$input-btn-padding-x: map-get($spacers, 3);
+
+// Tooltip
+$tooltip-bg: $lighter;
+$tooltip-color: $dark;
+$tooltip-opacity: 1;
+$tooltip-padding-x: map-get($spacers, 2);
+$tooltip-padding-y: map-get($spacers, 1);
+$tooltip-arrow-width: 20px;
+$tooltip-arrow-height: 10px;
+
+// Progress
+$progress-height: 2 * $font-size-base;
+$progress-border-radius: $font-size-base;
+$progress-bg: rgba($dark, 0.07);
+
+// Modal
+$modal-dialog-margin-y-sm-up: map-get($spacers, $key: 6);
+$modal-inner-padding: map-get($spacers, 5);
+// $modal-header-padding: map-get($spacers, 5);
+
+// $font-size-base: 1rem;
+
+// Private Parameters ( non third-party )
+$header-height: 80px;

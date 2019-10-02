@@ -1,0 +1,15 @@
+@mixin _shadow-0(){
+	box-shadow: 0px 0px 0px 0px rgba(#000, 0);
+}
+
+@mixin _shadow-1(){
+	box-shadow: 0px 10px 50px 0px rgba(#000, 0.05);
+}
+
+@mixin _shadow-2(){
+	box-shadow: 0px 20px 80px 0px rgba(#000, 0.15);
+}
+
+@mixin _shadow-3(){
+	box-shadow: 0px 20px 120px 0px rgba(#000, 0.20);
+}

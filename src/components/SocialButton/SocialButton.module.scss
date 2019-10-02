@@ -1,0 +1,39 @@
+@import 'ui-framework/ui';
+
+:local(.container) {
+    width: 200px;
+    .btn {
+        color: $light;
+        padding-left: 0.5rem;
+        &:first-child {
+            padding: 0.5rem;
+            width: 40px;
+            flex: unset;
+        }
+        &:hover {
+            color: $light;
+        }
+        &:focus {
+            box-shadow: none;
+        }
+        &.btn-facebook {
+            background-color: #2e4486;
+            &:first-child {
+                background-color: rgba(#2e4486, 0.91);
+            }
+        }
+        &.btn-twitter {
+            background-color: #3da2f0;
+            &:first-child {
+                background-color: rgba(#3da2f0, 0.91);
+            }
+        }
+        &.btn-manual {
+            background-color: #dee2e6;
+            color: $dark;
+            &:first-child {
+                background-color: rgba(#dee2e6, 0.7);
+            }
+        }
+    }
+}

@@ -1,0 +1,16 @@
+@import 'ui-framework/ui';
+
+:local(.container) {
+    border-radius: 50%;
+    min-width: 32px;
+    min-height: 32px;
+    background-color: rgba($dark, 0.1);
+    display: block;
+    overflow: hidden;
+    .circular-img {
+        min-height: 100%;
+        width: 100%;
+        object-fit: cover;
+        object-position: center center;
+    }
+}

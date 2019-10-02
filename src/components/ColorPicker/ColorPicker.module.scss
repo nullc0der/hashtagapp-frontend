@@ -1,0 +1,10 @@
+:local(.container) {
+    position: relative;
+}
+
+:local(.inner) {
+    position: absolute;
+    z-index: 100;
+    right: 0;
+    top: 0;
+}

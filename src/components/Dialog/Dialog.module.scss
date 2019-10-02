@@ -1,0 +1,88 @@
+@import 'ui-framework/ui';
+
+$dialog-title-padding-y: map-get($spacers, 5);
+$dialog-title-padding-x: 50px;
+
+:local(.container) {
+    background-color: rgba($color: $dark, $alpha: 0.75);
+    // .fade-appear {
+    //     opacity: 0.01;
+    //     &.fade-appear-active {
+    //         opacity: 1;
+    //         transition: opacity 0.5s ease;
+    //     }
+    // }
+    &.show {
+        display: block;
+    }
+    // .modal-backdrop {
+    //     background-color: $dark;
+    //     &.show {
+    //         opacity: 0.75;
+    //     }
+    // }
+    .modal-content {
+        border-radius: 10px;
+        &.hide {
+            margin-left: -9999px;
+        }
+    }
+    .modal-footer {
+        border-radius: 0 0 10px 10px;
+    }
+    .modal-dialog {
+        z-index: $zindex-modal;
+        @include media-breakpoint-only(md, $grid-breakpoints) {
+            max-width: 650px;
+        }
+        @include media-breakpoint-only(lg, $grid-breakpoints) {
+            max-width: 800px;
+        }
+        @include media-breakpoint-up(xl, $grid-breakpoints) {
+            max-width: 950px;
+        }
+    }
+
+    .modal-header {
+        border-bottom: none;
+        padding: 0;
+    }
+    .modal-body {
+        padding: map-get($spacers, 4) $dialog-title-padding-x;
+        @include media-breakpoint-down(sm, $grid-breakpoints) {
+            padding: map-get($spacers, 3) map-get($spacers, 3);
+        }
+    }
+
+    .close {
+        position: absolute;
+        top: -6px;
+        right: 0;
+        width: 48px;
+        height: 48px;
+        margin: 0;
+        z-index: 1;
+        outline: none;
+    }
+
+    .modal-title {
+        text-align: center;
+        width: 100%;
+        padding: $dialog-title-padding-y $dialog-title-padding-x 0;
+    }
+
+    // @include media-breakpoint-up(md, $grid-breakpoints) {
+    //     .modal-dialog {
+    //         max-height: 90vw;
+    //         overflow-y: auto;
+    //     }
+    // }
+
+    @include media-breakpoint-down(sm, $grid-breakpoints) {
+        .modal-dialog {
+            padding-left: map-get($spacers, 2) * 0.75;
+            padding-right: map-get($spacers, 2) * 0.75;
+            margin: map-get($spacers, 2) auto;
+        }
+    }
+}

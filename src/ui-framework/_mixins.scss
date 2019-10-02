@@ -1,0 +1,43 @@
+@mixin dimensions($size) {
+    width: $size;
+    height: $size;
+}
+
+@mixin placeholder() {
+    &::-webkit-input-placeholder {
+        @content;
+    }
+    &:-moz-placeholder {
+        @content;
+    }
+    &::-moz-placeholder {
+        @content;
+    }
+    &:-ms-input-placeholder {
+        @content;
+    }
+}
+
+@mixin thin-gradient($angle: 45deg, $color: rgba(0, 0, 0, 0.05)) {
+    background-image: repeating-linear-gradient(
+        $angle,
+        transparent,
+        transparent 20%,
+        $color 20%,
+        $color 25%
+    );
+}
+
+@mixin fat-gradient($angle: 45deg, $color: rgba(0, 0, 0, 0.05)) {
+    background-image: repeating-linear-gradient(
+        $angle,
+        transparent,
+        transparent 25%,
+        $color 25%,
+        $color 50%
+    );
+}
+
+@mixin animate-progress-bar($time: 12s) {
+    animation: animate-progress-bar $time linear infinite;
+}
