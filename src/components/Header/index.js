@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
 
-import logo from 'assets/images/logo.jpg'
+import logo from 'assets/images/logo.png'
 
 import s from './Header.module.scss'
 
