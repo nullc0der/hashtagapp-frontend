@@ -135,70 +135,70 @@ export default class EditImage extends Component {
                 <div className="cropper-actions">
                     <div className="btn-group btn-group-sm">
                         <CropperAction
-                            icon="fa fa-arrows"
+                            icon="fas fa-arrows-alt"
                             tip="Move on Drag"
                             onClick={this.setDragMove}
                         />
                         <CropperAction
-                            icon="fa fa-crop"
+                            icon="fas fa-crop"
                             tip="Crop on Drag"
                             onClick={this.setDragCrop}
                         />
                     </div>
                     <div className="btn-group btn-group-sm">
                         <CropperAction
-                            icon="fa fa-search-plus"
+                            icon="fas fa-search-plus"
                             tip="Zoom In"
                             onClick={this.zoomIn}
                         />
                         <CropperAction
-                            icon="fa fa-search-minus"
+                            icon="fas fa-search-minus"
                             tip="Zoom Out"
                             onClick={this.zoomOut}
                         />
                     </div>
                     <div className="btn-group btn-group-sm">
                         <CropperAction
-                            icon="fa fa-arrow-left"
+                            icon="fas fa-arrow-left"
                             tip="Move Left"
                             onClick={this.moveLeft}
                         />
                         <CropperAction
-                            icon="fa fa-arrow-right"
+                            icon="fas fa-arrow-right"
                             tip="Move Right"
                             onClick={this.moveRight}
                         />
                         <CropperAction
-                            icon="fa fa-arrow-up"
+                            icon="fas fa-arrow-up"
                             tip="Move Up"
                             onClick={this.moveUp}
                         />
                         <CropperAction
-                            icon="fa fa-arrow-down"
+                            icon="fas fa-arrow-down"
                             tip="Move Down"
                             onClick={this.moveDown}
                         />
                     </div>
                     <div className="btn-group btn-group-sm">
                         <CropperAction
-                            icon="fa fa-rotate-left"
+                            icon="fas fa-undo"
                             tip="Rotate Left"
                             onClick={this.rotateLeft}
                         />
                         <CropperAction
-                            icon="fa fa-rotate-right"
+                            icon="fas fa-redo"
                             tip="Rotate Right"
                             onClick={this.rotateRight}
                         />
                     </div>
                     <div className="btn-group btn-group-sm">
                         <CropperAction
-                            icon="fa fa-arrows-h"
+                            icon="fas fa-arrows-alt-h"
                             tip="Flip Horizontal"
                             onClick={this.flipHorizontal}
                         />
                         <CropperAction
-                            icon="fa fa-arrows-v"
+                            icon="fas fa-arrows-alt-v"
                             tip="Flip Vertical"
                             onClick={this.flipVertical}
                         />
