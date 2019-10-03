@@ -8,6 +8,9 @@
     left: 0;
     right: 0;
     position: relative;
+    @include media-breakpoint-down(md, $grid-breakpoints) {
+        padding: 1rem 0;
+    }
     .header-logo {
         color: $dark;
         display: flex;

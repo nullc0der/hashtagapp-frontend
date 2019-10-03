@@ -280,7 +280,7 @@ class HashtagSection extends Component {
                         onRequestClose={this.onCropperClose}
                     />
                 )}
-                <div className="preview-section mt-5">
+                <div className="preview-section mt-3 mt-md-5">
                     <CircularImage size={128} src={croppedImage} />
                     <div className="arrow">
                         <i className="fa fa-arrow-right" />
@@ -306,7 +306,7 @@ class HashtagSection extends Component {
                     </div>
                     {!!uid && (
                         <div
-                            className="btn btn-light"
+                            className="btn btn-light mt-1 mt-md-0"
                             onClick={this.getImageFromSocial}>
                             Use from {provider}
                             {isDownloading ? (
@@ -319,7 +319,7 @@ class HashtagSection extends Component {
                         </div>
                     )}
                 </div>
-                <div className="actions mt-2">
+                <div className="actions mt-1 mt-md-2">
                     <div
                         className="btn btn-light"
                         onClick={() =>
@@ -339,7 +339,7 @@ class HashtagSection extends Component {
                     </div>
                     {!!uid && (
                         <div
-                            className="btn btn-light"
+                            className="btn btn-light mt-1 mt-md-0"
                             onClick={() =>
                                 this.setState({ showTextColorPicker: true })
                             }>
@@ -360,7 +360,7 @@ class HashtagSection extends Component {
                     )}
                 </div>
                 {!uid && (
-                    <div className="actions mt-2">
+                    <div className="actions mt-1 mt-md-2">
                         <div
                             className="btn btn-light"
                             onClick={() =>
@@ -382,7 +382,7 @@ class HashtagSection extends Component {
                         </div>
                     </div>
                 )}
-                <div className="final-actions actions mt-2">
+                <div className="final-actions actions mt-1 mt-md-2">
                     <div
                         className="btn btn-dark btn-download"
                         onClick={this.downloadImage}>
@@ -391,7 +391,7 @@ class HashtagSection extends Component {
                     </div>
                     {!!uid && (
                         <div
-                            className={`btn btn-dark btn-upload-social`}
+                            className={`btn btn-dark btn-upload-social mt-1 mt-md-0`}
                             onClick={this.uploadImageToSocial}>
                             Upload to {provider}
                             <i className="fas fa-arrow-up" />

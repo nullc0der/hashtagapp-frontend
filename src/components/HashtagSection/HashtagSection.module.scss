@@ -21,6 +21,9 @@
         justify-content: center;
         .arrow {
             margin: 0 4rem;
+            @include media-breakpoint-down(md, $grid-breakpoints) {
+                margin: 0 1rem;
+            }
         }
     }
     .btn-upload-local {
@@ -40,6 +43,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        @include media-breakpoint-down(md, $grid-breakpoints) {
+            flex-direction: column;
+        }
         .btn {
             cursor: pointer;
             margin: 0 map-get($spacers, 2);
