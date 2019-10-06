@@ -14,18 +14,31 @@ class Header extends Component {
             <div className={cx}>
                 <div className="container">
                     <div className="d-flex align-items-center justify-content-around">
-                        <div className="header-logo">
+                        <a
+                            href="https://www.basicincomeaction.org/"
+                            className="header-logo">
                             <img
                                 className="img-fluid logo-image"
                                 alt="Basic Income Action Logo"
                                 src={logo}
                             />
                             <p className="logo-text">BASIC INCOME ACTION</p>
-                        </div>
-                        <div className="donate-button">
-                            <button className="btn btn-outline-dark btn-rounded">
-                                Donate
-                            </button>
+                        </a>
+                        <div className="header-buttons">
+                            <div className="join-button">
+                                <a
+                                    className="btn btn-outline-dark btn-rounded"
+                                    href="https://www.basicincomeaction.org/join">
+                                    Join
+                                </a>
+                            </div>
+                            <div className="donate-button">
+                                <a
+                                    className="btn btn-outline-dark btn-rounded"
+                                    href="https://www.basicincomeaction.org/donate">
+                                    Donate
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

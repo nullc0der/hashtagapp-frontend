@@ -15,6 +15,7 @@
         color: $dark;
         display: flex;
         align-items: center;
+        text-decoration: none;
         .logo-image {
             height: 60px;
             width: 60px;
@@ -26,9 +27,23 @@
             font-weight: $font-weight-bold;
         }
     }
-    .donate-button {
-        button {
+    .header-buttons {
+        display: flex;
+        .btn {
             border-width: 2px;
         }
+        .donate-button {
+            margin-left: 0.5rem;
+        }
+        // @include media-breakpoint-down(md, $grid-breakpoints) {
+        //     flex-direction: column;
+        //     .btn {
+        //         width: 120px;
+        //     }
+        //     .donate-button {
+        //         margin-left: 0;
+        //         margin-top: 0.5rem;
+        //     }
+        // }
     }
 }

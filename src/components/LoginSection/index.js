@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import classnames from 'classnames'
 
 import SocialButton from 'components/SocialButton'
-import FacebookLogin from 'components/FacebookLogin'
+// import FacebookLogin from 'components/FacebookLogin'
 import TwitterLogin from 'components/TwitterLogin'
 
 import imageBefore from 'assets/images/image-before.png'
@@ -40,7 +40,7 @@ class LoginSection extends Component {
                     </div>
                 </div>
                 <div className="login-buttons mt-3">
-                    <FacebookLogin tag="div" handleSocialLogin={handleLogin}>
+                    {/* <FacebookLogin tag="div" handleSocialLogin={handleLogin}>
                         <SocialButton
                             buttonConf={{
                                 className: 'facebook',
@@ -48,7 +48,7 @@ class LoginSection extends Component {
                                 icon: 'fab fa-facebook'
                             }}
                         />
-                    </FacebookLogin>
+                    </FacebookLogin> */}
                     <TwitterLogin handleSocialLogin={handleLogin}>
                         <SocialButton
                             buttonConf={{
