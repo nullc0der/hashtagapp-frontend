@@ -147,7 +147,7 @@ export default class Dialog extends Component {
                                         className="close"
                                         aria-label="Close"
                                         onClick={this.onRequestClose}>
-                                        <i className="material-icons">close</i>
+                                        <i className="fas fa-times" />
                                     </button>
                                 )}
                             </div>

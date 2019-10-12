@@ -6,12 +6,12 @@ import s from './SocialButton.module.scss'
 
 class SocialButton extends Component {
     render() {
-        const { className, buttonConf } = this.props
+        const { className, buttonConf, onClick = () => {} } = this.props
         const cx = classnames(s.container, className, 'btn-group')
         const buttonClass = classnames('btn', `btn-${buttonConf.className}`)
 
         return (
-            <div className={cx}>
+            <div className={cx} onClick={onClick}>
                 <button className={buttonClass}>
                     <i className={buttonConf.icon} />
                 </button>

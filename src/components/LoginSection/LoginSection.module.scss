@@ -33,4 +33,38 @@
         align-items: center;
         padding: 0.5rem 0;
     }
+    .modal-dialog {
+        max-height: calc(90vh);
+        max-width: 60vw;
+        @include media-breakpoint-down(md, $grid-breakpoints) {
+            max-width: 60vw;
+        }
+        @include media-breakpoint-down(sm, $grid-breakpoints) {
+            max-width: 90vw;
+        }
+    }
+    .modal-title {
+        padding-top: 1rem;
+    }
+    .modal-body {
+        padding: 1rem 30px;
+        ol {
+            padding-inline-start: 1rem;
+        }
+    }
+    .modal-footer {
+        border-top: none;
+        padding: 0 30px 1rem;
+
+        .btn {
+            cursor: pointer;
+        }
+
+        .btn-cancel {
+            margin-right: 1rem;
+            @include media-breakpoint-down(md, $grid-breakpoints) {
+                margin-right: 0.25rem;
+            }
+        }
+    }
 }

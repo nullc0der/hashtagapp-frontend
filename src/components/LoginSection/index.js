@@ -4,6 +4,7 @@ import classnames from 'classnames'
 import SocialButton from 'components/SocialButton'
 // import FacebookLogin from 'components/FacebookLogin'
 import TwitterLogin from 'components/TwitterLogin'
+import Dialog from 'components/Dialog'
 
 import imageBefore from 'assets/images/image-before.png'
 import imageAfter from 'assets/images/image-after.png'
@@ -11,6 +12,22 @@ import imageAfter from 'assets/images/image-after.png'
 import s from './LoginSection.module.scss'
 
 class LoginSection extends Component {
+    state = {
+        isTwitterLoginInfoPopupOpen: false
+    }
+
+    onRequestCloseTwitterLoginInfoPopup = () => {
+        this.setState({
+            isTwitterLoginInfoPopupOpen: false
+        })
+    }
+
+    onRequestOpenTwitterLoginInfoPopup = () => {
+        this.setState({
+            isTwitterLoginInfoPopupOpen: true
+        })
+    }
+
     render() {
         const { className, handleLogin } = this.props
         const cx = classnames(
@@ -19,6 +36,21 @@ class LoginSection extends Component {
             'container',
             'text-center'
         )
+        const twitterLoginInfoPopupFooter = (
+            <div className="d-flex mt-lg-0 mt-1">
+                <div
+                    className="btn btn-light btn-cancel"
+                    onClick={this.onRequestCloseTwitterLoginInfoPopup}>
+                    Cancel
+                </div>
+                <TwitterLogin handleSocialLogin={handleLogin}>
+                    <div onClick={() => {}} className="btn btn-dark">
+                        Proceed
+                    </div>
+                </TwitterLogin>
+            </div>
+        )
+
         return (
             <div className={cx}>
                 <h2 className="app-name">BASIC INCOME HASHTAG APP</h2>
@@ -49,16 +81,15 @@ class LoginSection extends Component {
                             }}
                         />
                     </FacebookLogin> */}
-                    <TwitterLogin handleSocialLogin={handleLogin}>
-                        <SocialButton
-                            buttonConf={{
-                                className: 'twitter',
-                                name: 'Twitter',
-                                icon: 'fab fa-twitter'
-                            }}
-                            className="mt-2"
-                        />
-                    </TwitterLogin>
+                    <SocialButton
+                        buttonConf={{
+                            className: 'twitter',
+                            name: 'Twitter',
+                            icon: 'fab fa-twitter'
+                        }}
+                        className="mt-2"
+                        onClick={this.onRequestOpenTwitterLoginInfoPopup}
+                    />
                     <div
                         onClick={() => {
                             handleLogin(null, 'manual')
@@ -73,6 +104,28 @@ class LoginSection extends Component {
                         />
                     </div>
                 </div>
+                <Dialog
+                    isOpen={this.state.isTwitterLoginInfoPopupOpen}
+                    title="Important Notice"
+                    className={s.container}
+                    onRequestClose={this.onRequestCloseTwitterLoginInfoPopup}
+                    footer={twitterLoginInfoPopupFooter}>
+                    <p>
+                        The basic income hashtag app is provided to spread
+                        awareness and advocacy. Twitter does not allow us to
+                        notify you on how we use your connected account or data.
+                        So we wanted you to know.
+                    </p>
+                    <p>Things we do with users Twitter account -</p>
+                    <ol>
+                        <li>Download user profile image.</li>
+                        <li>Upload modified image.</li>
+                    </ol>
+                    <p>Things we do not do with users Twitter account -</p>
+                    <ol>
+                        <li>Store your data.</li>
+                    </ol>
+                </Dialog>
             </div>
         )
     }
