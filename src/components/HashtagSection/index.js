@@ -128,7 +128,7 @@ class HashtagSection extends Component {
         previewImage: '',
         croppedImage: '',
         showCropper: false,
-        textColor: '#888',
+        textColor: '#000',
         semiCircleColor: '#fff',
         showBGColorPicker: false,
         showTextColorPicker: false
@@ -315,17 +315,17 @@ class HashtagSection extends Component {
                         <div
                             className="btn btn-light mt-1 mt-md-0"
                             onClick={() =>
-                                this.setState({ showTextColorPicker: true })
+                                this.setState({ showBGColorPicker: true })
                             }>
-                            Text Color
+                            Background Color
                             <i className="fas fa-eye-dropper" />
-                            {showTextColorPicker && (
+                            {showBGColorPicker && (
                                 <ColorPicker
-                                    color={textColor}
-                                    onChange={this.onTextColorChange}
+                                    color={semiCircleColor}
+                                    onChange={this.onSemiCircleColorChange}
                                     onRequestClose={() =>
                                         this.setState({
-                                            showTextColorPicker: false
+                                            showBGColorPicker: false
                                         })
                                     }
                                 />
@@ -333,8 +333,8 @@ class HashtagSection extends Component {
                         </div>
                     )}
                 </div>
-                <div className="actions mt-1 mt-md-2">
-                    {!!uid && (
+                {!!uid && (
+                    <div className="actions mt-1 mt-md-2">
                         <div
                             className="btn btn-light mt-1 mt-md-0"
                             onClick={this.getImageFromSocial}>
@@ -347,29 +347,8 @@ class HashtagSection extends Component {
                                 <i className={`fab fa-${provider}`} />
                             )}
                         </div>
-                    )}
-                    <div
-                        className="btn btn-light"
-                        onClick={() =>
-                            this.setState({ showBGColorPicker: true })
-                        }>
-                        Background Color
-                        <i className="fas fa-eye-dropper" />
-                        {showBGColorPicker && (
-                            <ColorPicker
-                                color={semiCircleColor}
-                                onChange={this.onSemiCircleColorChange}
-                                onRequestClose={() =>
-                                    this.setState({ showBGColorPicker: false })
-                                }
-                            />
-                        )}
-                    </div>
-                </div>
-                {!uid && (
-                    <div className="actions mt-1 mt-md-2">
                         <div
-                            className="btn btn-light"
+                            className="btn btn-light mt-1 mt-md-0"
                             onClick={() =>
                                 this.setState({ showTextColorPicker: true })
                             }>
@@ -388,6 +367,52 @@ class HashtagSection extends Component {
                             )}
                         </div>
                     </div>
+                )}
+                {!uid && (
+                    <React.Fragment>
+                        <div className="actions mt-1 mt-md-2">
+                            <div
+                                className="btn btn-light mt-1 mt-md-0"
+                                onClick={() =>
+                                    this.setState({ showBGColorPicker: true })
+                                }>
+                                Background Color
+                                <i className="fas fa-eye-dropper" />
+                                {showBGColorPicker && (
+                                    <ColorPicker
+                                        color={semiCircleColor}
+                                        onChange={this.onSemiCircleColorChange}
+                                        onRequestClose={() =>
+                                            this.setState({
+                                                showBGColorPicker: false
+                                            })
+                                        }
+                                    />
+                                )}
+                            </div>
+                        </div>
+                        <div className="actions mt-1 mt-md-2">
+                            <div
+                                className="btn btn-light"
+                                onClick={() =>
+                                    this.setState({ showTextColorPicker: true })
+                                }>
+                                Text Color
+                                <i className="fas fa-eye-dropper" />
+                                {showTextColorPicker && (
+                                    <ColorPicker
+                                        color={textColor}
+                                        onChange={this.onTextColorChange}
+                                        onRequestClose={() =>
+                                            this.setState({
+                                                showTextColorPicker: false
+                                            })
+                                        }
+                                    />
+                                )}
+                            </div>
+                        </div>
+                    </React.Fragment>
                 )}
                 <div className="final-actions actions mt-1 mt-md-2">
                     <div
