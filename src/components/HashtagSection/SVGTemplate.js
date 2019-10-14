@@ -27,6 +27,9 @@ const SVGTemplate = ({ id, semiCircleColor, textColor, imageData }) => (
                     offset="13.2351127%"></stop>
                 <stop stopColor={semiCircleColor} offset="100%"></stop>
             </linearGradient>
+            <path
+                d="M0,63a63,63 0 1,0 126,0a63,63 0 1,0 -126,0"
+                id="curvedText"></path>
         </defs>
         <g
             id="Page-1"
@@ -62,12 +65,21 @@ const SVGTemplate = ({ id, semiCircleColor, textColor, imageData }) => (
                     />
                 </g>
                 <path
-                    d="M18.783 19.076 33.255 28.864C21.858 43.287 17.19 63.406 20.525 74.186 27.525 96.83 41.356 108.699 64 108.699 86.644 108.699 112.235 88.587 110.013 66.052 108.891 54.672 102.853 37.363 95.366 29.935L109.141 19C120.789 30.591 128 46.638 128 64.369 128 99.715 99.346 128.369 64 128.369 28.654 128.369 0 99.715 0 64.369 0 46.676 7.179 30.661 18.783 19.076Z"
+                    d="M18.783 19.076 28.014 30.275C15.319 43.253 13.275 57.263 13.272 66.936 15.504 100.519 43.258 113.609 65.122 113.504 88.697 113.391 114.178 97.061 114.58 64.93 115.303 56.987 113.024 45.217 100.208 29.935L108.861 19.28C120.509 30.872 128 46.638 128 64.369 128 99.715 99.346 128.369 64 128.369 28.654 128.369 0 99.715 0 64.369 0 46.676 7.179 30.661 18.783 19.076Z"
                     id="semiCircle"
                     fill="url(#linearGradient-1)"
                     fillRule="nonzero"
                 />
-                <g
+                <text
+                    fill={textColor}
+                    fontWeight="500"
+                    fontSize="16px"
+                    fontFamily="Arial, Helvetica, sans-serif">
+                    <textPath href="#curvedText" startOffset="12%">
+                        #BasicIncome
+                    </textPath>
+                </text>
+                {/* <g
                     id="text"
                     transform="translate(3.000000, 66.000000)"
                     fill={textColor}>
@@ -131,7 +143,7 @@ const SVGTemplate = ({ id, semiCircleColor, textColor, imageData }) => (
                         id="e"
                         transform="translate(113.000000, 19.000000) rotate(-65.465379) translate(-115.000000, -10.000000) "
                     />
-                </g>
+                </g> */}
             </g>
         </g>
     </svg>

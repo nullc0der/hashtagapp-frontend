@@ -134,6 +134,13 @@ class HashtagSection extends Component {
         showTextColorPicker: false
     }
 
+    componentDidMount = () => {
+        const { provider } = this.props
+        if (provider !== 'manual') {
+            this.getImageFromSocial()
+        }
+    }
+
     downloadImage = () => {
         const { croppedImage } = this.state
         if (!croppedImage) {
@@ -307,39 +314,6 @@ class HashtagSection extends Component {
                     {!!uid && (
                         <div
                             className="btn btn-light mt-1 mt-md-0"
-                            onClick={this.getImageFromSocial}>
-                            Use from {provider}
-                            {isDownloading ? (
-                                <i
-                                    className={`fas fa-spinner fa-pulse fa-fw`}
-                                />
-                            ) : (
-                                <i className={`fab fa-${provider}`} />
-                            )}
-                        </div>
-                    )}
-                </div>
-                <div className="actions mt-1 mt-md-2">
-                    <div
-                        className="btn btn-light"
-                        onClick={() =>
-                            this.setState({ showBGColorPicker: true })
-                        }>
-                        Background Color
-                        <i className="fas fa-eye-dropper" />
-                        {showBGColorPicker && (
-                            <ColorPicker
-                                color={semiCircleColor}
-                                onChange={this.onSemiCircleColorChange}
-                                onRequestClose={() =>
-                                    this.setState({ showBGColorPicker: false })
-                                }
-                            />
-                        )}
-                    </div>
-                    {!!uid && (
-                        <div
-                            className="btn btn-light mt-1 mt-md-0"
                             onClick={() =>
                                 this.setState({ showTextColorPicker: true })
                             }>
@@ -358,6 +332,39 @@ class HashtagSection extends Component {
                             )}
                         </div>
                     )}
+                </div>
+                <div className="actions mt-1 mt-md-2">
+                    {!!uid && (
+                        <div
+                            className="btn btn-light mt-1 mt-md-0"
+                            onClick={this.getImageFromSocial}>
+                            Use from {provider}
+                            {isDownloading ? (
+                                <i
+                                    className={`fas fa-spinner fa-pulse fa-fw`}
+                                />
+                            ) : (
+                                <i className={`fab fa-${provider}`} />
+                            )}
+                        </div>
+                    )}
+                    <div
+                        className="btn btn-light"
+                        onClick={() =>
+                            this.setState({ showBGColorPicker: true })
+                        }>
+                        Background Color
+                        <i className="fas fa-eye-dropper" />
+                        {showBGColorPicker && (
+                            <ColorPicker
+                                color={semiCircleColor}
+                                onChange={this.onSemiCircleColorChange}
+                                onRequestClose={() =>
+                                    this.setState({ showBGColorPicker: false })
+                                }
+                            />
+                        )}
+                    </div>
                 </div>
                 {!uid && (
                     <div className="actions mt-1 mt-md-2">

@@ -35,7 +35,7 @@
     }
     .modal-dialog {
         max-height: calc(90vh);
-        max-width: 60vw;
+        max-width: 40vw;
         @include media-breakpoint-down(md, $grid-breakpoints) {
             max-width: 60vw;
         }

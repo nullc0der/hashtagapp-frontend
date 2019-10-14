@@ -113,15 +113,14 @@ class LoginSection extends Component {
                     <p>
                         The basic income hashtag app is provided to spread
                         awareness and advocacy. Twitter does not allow us to
-                        notify you on how we use your connected account or data.
-                        So we wanted you to know.
+                        notify you on how we use your account or data.
                     </p>
-                    <p>Things we do with users Twitter account -</p>
+                    <p>Things we do with your Twitter account -</p>
                     <ol>
-                        <li>Download user profile image.</li>
+                        <li>Download your profile image.</li>
                         <li>Upload modified image.</li>
                     </ol>
-                    <p>Things we do not do with users Twitter account -</p>
+                    <p>Things we do not do with your Twitter account -</p>
                     <ol>
                         <li>Store your data.</li>
                     </ol>
