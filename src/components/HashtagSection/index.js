@@ -128,8 +128,8 @@ class HashtagSection extends Component {
         previewImage: '',
         croppedImage: '',
         showCropper: false,
-        textColor: '#000',
-        semiCircleColor: '#fff',
+        textColor: '#fff',
+        semiCircleColor: '#000',
         showBGColorPicker: false,
         showTextColorPicker: false
     }
