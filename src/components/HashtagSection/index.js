@@ -1,5 +1,11 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
+import {
+    Dropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem
+} from 'reactstrap'
 
 import ColorPicker from 'components/ColorPicker'
 import CircularImage from 'components/CircularImage'
@@ -131,7 +137,9 @@ class HashtagSection extends Component {
         textColor: '#fff',
         semiCircleColor: '#000',
         showBGColorPicker: false,
-        showTextColorPicker: false
+        showTextColorPicker: false,
+        svgTextDropdownOpen: false,
+        svgText: '#BasicIncome'
     }
 
     componentDidMount = () => {
@@ -256,6 +264,18 @@ class HashtagSection extends Component {
         alert(message)
     }
 
+    toggleSVGTextDropdown = () => {
+        this.setState({
+            svgTextDropdownOpen: !this.state.svgTextDropdownOpen
+        })
+    }
+
+    onChangeSVGText = text => {
+        this.setState({
+            svgText: text
+        })
+    }
+
     render() {
         const { className, uid, provider, resetLogin } = this.props
         const cx = classnames(
@@ -273,12 +293,49 @@ class HashtagSection extends Component {
             showTextColorPicker,
             showBGColorPicker,
             isDownloading,
-            isUploading
+            isUploading,
+            svgTextDropdownOpen,
+            svgText
         } = this.state
 
         return (
             <div className={cx}>
-                <h2 className="app-name">BASIC INCOME HASHTAG APP</h2>
+                <h2 className="app-name"> HASHTAG APP</h2>
+                <div className="actions mt-2 mt-md-4">
+                    <Dropdown
+                        isOpen={svgTextDropdownOpen}
+                        toggle={this.toggleSVGTextDropdown}>
+                        <DropdownToggle
+                            caret
+                            className="dropdown-toggle btn btn-light">
+                            {svgText}
+                        </DropdownToggle>
+                        <DropdownMenu right>
+                            <DropdownItem
+                                onClick={() =>
+                                    this.onChangeSVGText('#BasicIncome')
+                                }>
+                                #BasicIncome
+                            </DropdownItem>
+                            <DropdownItem
+                                onClick={() =>
+                                    this.onChangeSVGText('#Yang2020')
+                                }>
+                                #Yang2020
+                            </DropdownItem>
+                            <DropdownItem
+                                onClick={() => this.onChangeSVGText('#UBI')}>
+                                #UBI
+                            </DropdownItem>
+                            <DropdownItem
+                                onClick={() =>
+                                    this.onChangeSVGText('#IncomeMarch')
+                                }>
+                                #IncomeMarch
+                            </DropdownItem>
+                        </DropdownMenu>
+                    </Dropdown>
+                </div>
                 {showCropper && (
                     <ImageEditor
                         cropRounded
@@ -287,19 +344,20 @@ class HashtagSection extends Component {
                         onRequestClose={this.onCropperClose}
                     />
                 )}
-                <div className="preview-section mt-3 mt-md-5">
+                <div className="preview-section mt-2">
                     <CircularImage size={128} src={croppedImage} />
                     <div className="arrow">
                         <i className="fa fa-arrow-right" />
                     </div>
                     <SVGTemplate
                         id="final-image-svg"
+                        text={svgText}
                         textColor={textColor}
                         semiCircleColor={semiCircleColor}
                         imageData={croppedImage}
                     />
                 </div>
-                <div className="actions mt-3">
+                <div className="actions mt-2">
                     <div className="btn btn-light btn-upload-local">
                         Upload new image
                         <i className="fas fa-cloud-upload-alt" />
