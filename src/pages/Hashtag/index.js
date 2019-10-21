@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import Header from 'components/Header'
 import LoginSection from 'components/LoginSection'
 import HashtagSection from 'components/HashtagSection'
+import Footer from 'components/Footer'
 
 import './Hashtag.scss'
 
@@ -43,6 +44,7 @@ class HashTagPage extends Component {
                 ) : (
                     <LoginSection handleLogin={this.handleLogin} />
                 )}
+                <Footer />
             </div>
         )
     }

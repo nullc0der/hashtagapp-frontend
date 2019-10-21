@@ -76,7 +76,7 @@ const SVGTemplate = ({ id, text, semiCircleColor, textColor, imageData }) => (
                     fontSize="16px"
                     fontFamily="Arial, Helvetica, sans-serif">
                     <textPath
-                        href="#curvedText"
+                        xlinkHref="#curvedText"
                         startOffset="24.5%"
                         textAnchor="middle">
                         {text}

@@ -46,22 +46,19 @@ function getFinalImagePNG(provider) {
     canvas.width = 128
     canvas.height = 128
 
-    const _URL = window.URL || window.webkitURL
     const img = new Image()
 
-    var svgBlob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' })
-
     return new Promise((resolve, reject) => {
-        var url = _URL.createObjectURL(svgBlob)
+        var url = `data:image/svg+xml;base64,${btoa(
+            unescape(encodeURIComponent(svgStr))
+        )}`
         img.onload = function() {
-            // ctx.drawImage(img, 0, 0)
             let { scaleX, scaleY } = getScalingFactors(ctx, img, provider)
             canvas.width = canvas.width * scaleX
             canvas.height = canvas.height * scaleY
             ctx.scale(scaleX, scaleY) // Scale canvas
             ctx.drawImage(img, 0, 0) // Draw the scaled image
             let finalImage = canvas.toDataURL('image/png')
-            _URL.revokeObjectURL(url)
             resolve(finalImage)
         }
 
@@ -157,7 +154,7 @@ class HashtagSection extends Component {
 
         getFinalImagePNG(this.props.provider)
             .then(data => {
-                downloadAs('hashtagapp-image.png', data)
+                downloadAs('hashtag-image.png', data)
             })
             .catch(err => {
                 alert(err.message)
@@ -311,28 +308,28 @@ class HashtagSection extends Component {
                             {svgText}
                         </DropdownToggle>
                         <DropdownMenu right>
+                            {/* This should be always the first item */}
                             <DropdownItem
                                 onClick={() =>
                                     this.onChangeSVGText('#BasicIncome')
                                 }>
                                 #BasicIncome
                             </DropdownItem>
-                            <DropdownItem
-                                onClick={() =>
-                                    this.onChangeSVGText('#Yang2020')
-                                }>
-                                #Yang2020
-                            </DropdownItem>
-                            <DropdownItem
-                                onClick={() => this.onChangeSVGText('#UBI')}>
-                                #UBI
-                            </DropdownItem>
-                            <DropdownItem
-                                onClick={() =>
-                                    this.onChangeSVGText('#IncomeMarch')
-                                }>
-                                #IncomeMarch
-                            </DropdownItem>
+                            {[
+                                '#Yang2020',
+                                '#UBI',
+                                '#IncomeMarch',
+                                '#UniversalBasicIncome',
+                                '#FreedomDividend'
+                            ]
+                                .sort()
+                                .map((x, i) => (
+                                    <DropdownItem
+                                        key={i}
+                                        onClick={() => this.onChangeSVGText(x)}>
+                                        {x}
+                                    </DropdownItem>
+                                ))}
                         </DropdownMenu>
                     </Dropdown>
                 </div>

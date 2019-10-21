@@ -1,0 +1,28 @@
+@import 'ui-framework/ui';
+
+:local(.container) {
+    padding: 0.5rem;
+    text-align: center;
+    .btn-link {
+        color: $dark;
+        &:hover {
+            color: $dark;
+        }
+    }
+    .modal-dialog {
+        max-height: calc(90vh);
+        max-width: 40vw;
+        @include media-breakpoint-down(md, $grid-breakpoints) {
+            max-width: 60vw;
+        }
+        @include media-breakpoint-down(sm, $grid-breakpoints) {
+            max-width: 90vw;
+        }
+    }
+    .modal-title {
+        padding-top: 1rem;
+    }
+    .modal-body {
+        padding: 1rem 30px;
+    }
+}
