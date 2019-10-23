@@ -295,6 +295,21 @@ class HashtagSection extends Component {
             svgText
         } = this.state
 
+        const hashTags = [
+            '#Yang2020',
+            '#UBI',
+            '#IncomeMarch',
+            '#UniversalBasicIncome',
+            '#FreedomDividend',
+            '#CitizensDividend',
+            '#LivableIncome',
+            '#GuaranteedLivableIncome',
+            '#SocialIncome',
+            '#CitizensIncome',
+            '#BIG',
+            '#BasicIncomeGuarantee'
+        ]
+
         return (
             <div className={cx}>
                 <h2 className="app-name"> HASHTAG APP</h2>
@@ -315,21 +330,13 @@ class HashtagSection extends Component {
                                 }>
                                 #BasicIncome
                             </DropdownItem>
-                            {[
-                                '#Yang2020',
-                                '#UBI',
-                                '#IncomeMarch',
-                                '#UniversalBasicIncome',
-                                '#FreedomDividend'
-                            ]
-                                .sort()
-                                .map((x, i) => (
-                                    <DropdownItem
-                                        key={i}
-                                        onClick={() => this.onChangeSVGText(x)}>
-                                        {x}
-                                    </DropdownItem>
-                                ))}
+                            {hashTags.sort().map((x, i) => (
+                                <DropdownItem
+                                    key={i}
+                                    onClick={() => this.onChangeSVGText(x)}>
+                                    {x}
+                                </DropdownItem>
+                            ))}
                         </DropdownMenu>
                     </Dropdown>
                 </div>
