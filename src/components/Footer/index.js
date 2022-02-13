@@ -7,12 +7,12 @@ import s from './Footer.module.scss'
 
 class Footer extends React.Component {
     state = {
-        isDisclaimerDialogOpen: false
+        isDisclaimerDialogOpen: false,
     }
 
     toggleDisclaimerDialog = () => {
         this.setState({
-            isDisclaimerDialogOpen: !this.state.isDisclaimerDialogOpen
+            isDisclaimerDialogOpen: !this.state.isDisclaimerDialogOpen,
         })
     }
 
@@ -39,9 +39,8 @@ class Footer extends React.Component {
                         hashtag app includes a variety of menu options that
                         allows for individual choice and in the future we may
                         add any public figure that openly supports the basic
-                        income movement. Basic Income Action, as an
-                        organization, does not endorse any one specific
-                        candidate.
+                        income movement. Baza Foundation, as an organization,
+                        does not endorse any one specific candidate.
                     </p>
                 </Dialog>
             </div>

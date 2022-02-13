@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
 
-import logo from 'assets/images/logo.png'
+import logo from 'assets/images/logo.svg'
 
 import s from './Header.module.scss'
 
@@ -15,27 +15,31 @@ class Header extends Component {
                 <div className="container">
                     <div className="d-flex align-items-center justify-content-around">
                         <a
-                            href="https://www.basicincomeaction.org/"
+                            href="https://baza.foundation/"
                             className="header-logo">
                             <img
                                 className="img-fluid logo-image"
-                                alt="Basic Income Action Logo"
+                                alt="Baza Foundation Logo"
                                 src={logo}
                             />
-                            <p className="logo-text">BASIC INCOME ACTION</p>
+                            <p className="logo-text">BAZA FOUNDATION</p>
                         </a>
                         <div className="header-buttons">
                             <div className="join-button">
                                 <a
+                                    target="_blank"
+                                    rel="noreferrer noopener"
                                     className="btn btn-outline-dark btn-rounded"
-                                    href="https://www.basicincomeaction.org/join">
-                                    Join
+                                    href="https://baza.foundation/signup">
+                                    Signup
                                 </a>
                             </div>
                             <div className="donate-button">
                                 <a
+                                    target="_blank"
+                                    rel="noreferrer noopener"
                                     className="btn btn-outline-dark btn-rounded"
-                                    href="https://www.basicincomeaction.org/donate">
+                                    href="https://baza.foundation/#!donate">
                                     Donate
                                 </a>
                             </div>

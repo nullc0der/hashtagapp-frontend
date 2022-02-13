@@ -4,7 +4,7 @@ import {
     Dropdown,
     DropdownToggle,
     DropdownMenu,
-    DropdownItem
+    DropdownItem,
 } from 'reactstrap'
 
 import ColorPicker from 'components/ColorPicker'
@@ -52,7 +52,7 @@ function getFinalImagePNG(provider) {
         var url = `data:image/svg+xml;base64,${btoa(
             unescape(encodeURIComponent(svgStr))
         )}`
-        img.onload = function() {
+        img.onload = function () {
             let { scaleX, scaleY } = getScalingFactors(ctx, img, provider)
             canvas.width = canvas.width * scaleX
             canvas.height = canvas.height * scaleY
@@ -87,7 +87,7 @@ function imageToDataURL(imageSrc) {
     const canvas = document.createElement('canvas')
 
     return new Promise((resolve, reject) => {
-        img.onload = function() {
+        img.onload = function () {
             canvas.height = img.naturalHeight
             canvas.width = img.naturalWidth
 
@@ -96,7 +96,7 @@ function imageToDataURL(imageSrc) {
             resolve(canvas.toDataURL())
         }
 
-        img.onerror = function() {
+        img.onerror = function () {
             reject(new Error('Cannot load image'))
         }
 
@@ -109,10 +109,7 @@ function dataURLtoBlob(dataURL) {
     var byteString = atob(dataURL.split(',')[1])
 
     // separate out the mime component
-    var mimeString = dataURL
-        .split(',')[0]
-        .split(':')[1]
-        .split(';')[0]
+    var mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0]
 
     // write the bytes of the string to an ArrayBuffer
     var arrayBuffer = new ArrayBuffer(byteString.length)
@@ -136,7 +133,7 @@ class HashtagSection extends Component {
         showBGColorPicker: false,
         showTextColorPicker: false,
         svgTextDropdownOpen: false,
-        svgText: '#BasicIncome'
+        svgText: '#BasicIncome',
     }
 
     componentDidMount = () => {
@@ -153,15 +150,15 @@ class HashtagSection extends Component {
         }
 
         getFinalImagePNG(this.props.provider)
-            .then(data => {
+            .then((data) => {
                 downloadAs('hashtag-image.png', data)
             })
-            .catch(err => {
+            .catch((err) => {
                 alert(err.message)
             })
     }
 
-    onImageUpload = e => {
+    onImageUpload = (e) => {
         const file = e.target.files[0]
         const reader = new FileReader()
 
@@ -182,24 +179,24 @@ class HashtagSection extends Component {
         this.setState({ isDownloading: true })
 
         fetchProfileImageURL(provider, uid)
-            .then(response => response.data.url)
+            .then((response) => response.data.url)
             .then(imageToDataURL)
             .then(this.handleImageLoadSuccess)
             .catch(this.handleImageLoadError)
     }
 
-    handleImageLoadSuccess = imageUrl => {
+    handleImageLoadSuccess = (imageUrl) => {
         this.setState({
             isDownloading: false,
             previewImage: imageUrl,
-            showCropper: true
+            showCropper: true,
         })
     }
-    handleImageLoadError = err => {
+    handleImageLoadError = (err) => {
         this.setState({ isDownloading: false })
     }
 
-    onEditDone = croppedImage => {
+    onEditDone = (croppedImage) => {
         this.setState({ croppedImage }, this.onCropperClose)
     }
 
@@ -208,13 +205,13 @@ class HashtagSection extends Component {
         this.setState({ showCropper: false, previewImage: '' })
     }
 
-    onSemiCircleColorChange = color => {
+    onSemiCircleColorChange = (color) => {
         const c = color.rgb
         const semiCircleColor = `rgba(${c.r}, ${c.g}, ${c.b}, ${c.a})`
         this.setState({ semiCircleColor })
     }
 
-    onTextColorChange = color => {
+    onTextColorChange = (color) => {
         const c = color.rgb
         const textColor = `rgba(${c.r}, ${c.g}, ${c.b}, ${c.a})`
         this.setState({ textColor })
@@ -228,32 +225,32 @@ class HashtagSection extends Component {
         }
         this.setState({ isUploading: true })
         getFinalImagePNG(provider)
-            .then(dataUrl =>
+            .then((dataUrl) =>
                 uploadProfileImage(provider, dataURLtoBlob(dataUrl), uid)
             )
-            .then(response => {
+            .then((response) => {
                 this.setState({ isUploading: false })
                 provider === 'facebook'
                     ? this.openFBShare(response.data.url)
                     : this.openSuccessDialog(provider)
             })
-            .catch(err => {
+            .catch((err) => {
                 this.setState({ isUploading: false })
                 alert(err.message)
             })
     }
 
-    openFBShare = href => {
+    openFBShare = (href) => {
         window.FB.ui(
             {
                 method: 'share',
-                href
+                href,
             },
             () => this.openSuccessDialog('facebook')
         )
     }
 
-    openSuccessDialog = provider => {
+    openSuccessDialog = (provider) => {
         const message =
             provider === 'facebook'
                 ? 'Successfully shared image on your wall'
@@ -263,13 +260,13 @@ class HashtagSection extends Component {
 
     toggleSVGTextDropdown = () => {
         this.setState({
-            svgTextDropdownOpen: !this.state.svgTextDropdownOpen
+            svgTextDropdownOpen: !this.state.svgTextDropdownOpen,
         })
     }
 
-    onChangeSVGText = text => {
+    onChangeSVGText = (text) => {
         this.setState({
-            svgText: text
+            svgText: text,
         })
     }
 
@@ -292,11 +289,10 @@ class HashtagSection extends Component {
             isDownloading,
             isUploading,
             svgTextDropdownOpen,
-            svgText
+            svgText,
         } = this.state
 
         const hashTags = [
-            '#Yang2020',
             '#UBI',
             '#IncomeMarch',
             '#UniversalBasicIncome',
@@ -307,7 +303,7 @@ class HashtagSection extends Component {
             '#SocialIncome',
             '#CitizensIncome',
             '#BIG',
-            '#BasicIncomeGuarantee'
+            '#BasicIncomeGuarantee',
         ]
 
         return (
@@ -387,7 +383,7 @@ class HashtagSection extends Component {
                                     onChange={this.onSemiCircleColorChange}
                                     onRequestClose={() =>
                                         this.setState({
-                                            showBGColorPicker: false
+                                            showBGColorPicker: false,
                                         })
                                     }
                                 />
@@ -422,7 +418,7 @@ class HashtagSection extends Component {
                                     onChange={this.onTextColorChange}
                                     onRequestClose={() =>
                                         this.setState({
-                                            showTextColorPicker: false
+                                            showTextColorPicker: false,
                                         })
                                     }
                                 />
@@ -446,7 +442,7 @@ class HashtagSection extends Component {
                                         onChange={this.onSemiCircleColorChange}
                                         onRequestClose={() =>
                                             this.setState({
-                                                showBGColorPicker: false
+                                                showBGColorPicker: false,
                                             })
                                         }
                                     />
@@ -467,7 +463,7 @@ class HashtagSection extends Component {
                                         onChange={this.onTextColorChange}
                                         onRequestClose={() =>
                                             this.setState({
-                                                showTextColorPicker: false
+                                                showTextColorPicker: false,
                                             })
                                         }
                                     />
