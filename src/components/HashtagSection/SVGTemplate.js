@@ -1,6 +1,13 @@
 import React from 'react'
 
-const SVGTemplate = ({ id, text, semiCircleColor, textColor, imageData }) => (
+const SVGTemplate = ({
+    id,
+    text,
+    semiCircleColor,
+    textColor,
+    imageData,
+    showRounded = false,
+}) => (
     <svg
         id={id}
         className="svg-template-image"
@@ -38,14 +45,28 @@ const SVGTemplate = ({ id, text, semiCircleColor, textColor, imageData }) => (
             fill="none"
             fillRule="evenodd">
             <g id="ImageTemplate" transform="translate(0.000000, -0.200000)">
-                <image
-                    id="Bitmap"
-                    x="0"
-                    y="0"
-                    width="128"
-                    height="128"
-                    xlinkHref={imageData}
-                />
+                {showRounded ? (
+                    <foreignObject x="0" y="0" width="128px" height="128px">
+                        {!!imageData.length && (
+                            <img
+                                width="128px"
+                                height="128px"
+                                src={imageData}
+                                style={{ borderRadius: '50%' }}
+                                alt=""
+                            />
+                        )}
+                    </foreignObject>
+                ) : (
+                    <image
+                        id="Bitmap"
+                        x="0"
+                        y="0"
+                        width="128"
+                        height="128"
+                        xlinkHref={imageData}
+                    />
+                )}
                 <g id="outerContainer" fill="transparent" fillRule="nonzero">
                     <path
                         d="M64,128 L0,128 L0,64 C4.21884749e-15,99.346224 28.653776,128 64,128 Z"

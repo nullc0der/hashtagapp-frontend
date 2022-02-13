@@ -1,30 +1,70 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
+import { get, sample } from 'lodash'
 
 import SocialButton from 'components/SocialButton'
 // import FacebookLogin from 'components/FacebookLogin'
 import TwitterLogin from 'components/TwitterLogin'
 import Dialog from 'components/Dialog'
+import CircularImage from 'components/CircularImage'
+import SVGTemplate from 'components/HashtagSection/SVGTemplate'
 
 import imageBefore from 'assets/images/image-before.png'
-import imageAfter from 'assets/images/image-after.png'
+
+import { getNonExistentPhoto } from 'api/hashtag'
 
 import s from './LoginSection.module.scss'
 
+const COLORS = [
+    '#66BB6A',
+    '#9CCC65',
+    '#D4E157',
+    '#FFEE58',
+    '#FFA726',
+    '#FF7043',
+]
+
+const HASHTAGS = [
+    '#UBI',
+    '#IncomeMarch',
+    '#UniversalBasicIncome',
+    '#FreedomDividend',
+    '#CitizensDividend',
+    '#LivableIncome',
+    '#GuaranteedLivableIncome',
+    '#SocialIncome',
+    '#CitizensIncome',
+    '#BIG',
+    '#BasicIncomeGuarantee',
+]
+
 class LoginSection extends Component {
     state = {
-        isTwitterLoginInfoPopupOpen: false
+        isTwitterLoginInfoPopupOpen: false,
+        imageData: '',
+        semiCircleColor: sample(COLORS),
+        text: sample(HASHTAGS),
+    }
+
+    componentDidMount() {
+        getNonExistentPhoto().then((response) => {
+            if (response.ok) {
+                this.setState({
+                    imageData: get(response.data, 'image', imageBefore),
+                })
+            }
+        })
     }
 
     onRequestCloseTwitterLoginInfoPopup = () => {
         this.setState({
-            isTwitterLoginInfoPopupOpen: false
+            isTwitterLoginInfoPopupOpen: false,
         })
     }
 
     onRequestOpenTwitterLoginInfoPopup = () => {
         this.setState({
-            isTwitterLoginInfoPopupOpen: true
+            isTwitterLoginInfoPopupOpen: true,
         })
     }
 
@@ -36,6 +76,7 @@ class LoginSection extends Component {
             'container',
             'text-center'
         )
+        const { imageData, semiCircleColor, text } = this.state
         const twitterLoginInfoPopupFooter = (
             <div className="d-flex mt-lg-0 mt-1">
                 <div
@@ -55,19 +96,18 @@ class LoginSection extends Component {
             <div className={cx}>
                 <h2 className="app-name">HASHTAG APP</h2>
                 <div className="app-demo mt-5">
-                    <div className="demo-image mr-3">
-                        <img
-                            className="img-fluid"
-                            alt="Before"
-                            src={imageBefore}
-                        />
+                    <div className="mr-3">
+                        <CircularImage size={128} src={imageData} />
                     </div>
                     <i className="fas fa-arrow-right" />
                     <div className="demo-image ml-3">
-                        <img
-                            className="img-fluid"
-                            alt="After"
-                            src={imageAfter}
+                        <SVGTemplate
+                            id="final-image-svg"
+                            text={text}
+                            textColor={'#fff'}
+                            semiCircleColor={semiCircleColor}
+                            imageData={imageData}
+                            showRounded={true}
                         />
                     </div>
                 </div>
@@ -85,7 +125,7 @@ class LoginSection extends Component {
                         buttonConf={{
                             className: 'twitter',
                             name: 'Twitter',
-                            icon: 'fab fa-twitter'
+                            icon: 'fab fa-twitter',
                         }}
                         className="mt-2"
                         onClick={this.onRequestOpenTwitterLoginInfoPopup}
@@ -98,7 +138,7 @@ class LoginSection extends Component {
                             buttonConf={{
                                 className: 'manual',
                                 name: 'Manual Upload',
-                                icon: 'fas fa-arrow-up'
+                                icon: 'fas fa-arrow-up',
                             }}
                             className="mt-2"
                         />

@@ -39,8 +39,7 @@ class Footer extends React.Component {
                         hashtag app includes a variety of menu options that
                         allows for individual choice and in the future we may
                         add any public figure that openly supports the basic
-                        income movement. Baza Foundation, as an organization,
-                        does not endorse any one specific candidate.
+                        income movement.
                     </p>
                 </Dialog>
             </div>
