@@ -9,7 +9,6 @@ import s from './Dialog.module.scss'
 export default class Dialog extends Component {
     componentDidMount = () => {
         if (this.props.isOpen) {
-            this.toggleTransition()
             document.addEventListener('click', this.handleClickOutside, false)
             document.addEventListener('keydown', this.closeOnEscapeKey, false)
             this.toggleBodyScroll(true)
@@ -29,7 +28,6 @@ export default class Dialog extends Component {
         if (prevProps.isOpen !== this.props.isOpen) {
             this.toggleBodyScroll(this.props.isOpen)
             if (this.props.isOpen) {
-                this.toggleTransition()
                 document.addEventListener(
                     'click',
                     this.handleClickOutside,
