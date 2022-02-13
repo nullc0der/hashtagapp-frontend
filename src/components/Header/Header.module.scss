@@ -35,6 +35,16 @@
         .donate-button {
             margin-left: 0.5rem;
         }
+        @include media-breakpoint-down(md, $grid-breakpoints) {
+            .btn {
+                border-width: 0;
+                padding: 0;
+                &:hover {
+                    background-color: transparent;
+                    color: $dark;
+                }
+            }
+        }
         // @include media-breakpoint-down(md, $grid-breakpoints) {
         //     flex-direction: column;
         //     .btn {

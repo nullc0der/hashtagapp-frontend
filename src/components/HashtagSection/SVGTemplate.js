@@ -52,7 +52,10 @@ const SVGTemplate = ({
                                 width="128px"
                                 height="128px"
                                 src={imageData}
-                                style={{ borderRadius: '50%' }}
+                                style={{
+                                    borderRadius: '50%',
+                                    objectFit: 'cover',
+                                }}
                                 alt=""
                             />
                         )}

@@ -56,7 +56,7 @@
         "react-color": "^2.17.3",
         "react-dev-utils": "^9.0.4",
         "react-dom": "^16.10.1",
-        "react-transition-group": "^4.3.0",
+        "react-transition-group": "1.x",
         "react-twitter-auth": "^0.0.13",
         "reactstrap": "^8.0.1",
         "resolve": "1.12.0",

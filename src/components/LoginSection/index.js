@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
 import { get, sample } from 'lodash'
+import { CSSTransitionGroup } from 'react-transition-group'
 
 import SocialButton from 'components/SocialButton'
 // import FacebookLogin from 'components/FacebookLogin'
@@ -8,6 +9,7 @@ import TwitterLogin from 'components/TwitterLogin'
 import Dialog from 'components/Dialog'
 import CircularImage from 'components/CircularImage'
 import SVGTemplate from 'components/HashtagSection/SVGTemplate'
+import { HASHTAGS } from 'components/HashtagSection/hashtags'
 
 import imageBefore from 'assets/images/image-before.png'
 
@@ -24,20 +26,6 @@ const COLORS = [
     '#FF7043',
 ]
 
-const HASHTAGS = [
-    '#UBI',
-    '#IncomeMarch',
-    '#UniversalBasicIncome',
-    '#FreedomDividend',
-    '#CitizensDividend',
-    '#LivableIncome',
-    '#GuaranteedLivableIncome',
-    '#SocialIncome',
-    '#CitizensIncome',
-    '#BIG',
-    '#BasicIncomeGuarantee',
-]
-
 class LoginSection extends Component {
     state = {
         isTwitterLoginInfoPopupOpen: false,
@@ -47,13 +35,23 @@ class LoginSection extends Component {
     }
 
     componentDidMount() {
-        getNonExistentPhoto().then((response) => {
-            if (response.ok) {
+        getNonExistentPhoto()
+            .then((response) => {
+                if (response.ok) {
+                    this.setState({
+                        imageData: get(response.data, 'image', imageBefore),
+                    })
+                } else {
+                    this.setState({
+                        imageData: imageBefore,
+                    })
+                }
+            })
+            .catch(() =>
                 this.setState({
-                    imageData: get(response.data, 'image', imageBefore),
+                    imageData: imageBefore,
                 })
-            }
-        })
+            )
     }
 
     onRequestCloseTwitterLoginInfoPopup = () => {
@@ -96,20 +94,33 @@ class LoginSection extends Component {
             <div className={cx}>
                 <h2 className="app-name">HASHTAG APP</h2>
                 <div className="app-demo mt-5">
-                    <div className="mr-3">
-                        <CircularImage size={128} src={imageData} />
-                    </div>
-                    <i className="fas fa-arrow-right" />
-                    <div className="demo-image ml-3">
-                        <SVGTemplate
-                            id="final-image-svg"
-                            text={text}
-                            textColor={'#fff'}
-                            semiCircleColor={semiCircleColor}
-                            imageData={imageData}
-                            showRounded={true}
-                        />
-                    </div>
+                    <CSSTransitionGroup
+                        component={React.Fragment}
+                        transitionName="demo-fade"
+                        transitionEnterTimeout={300}
+                        transitionLeaveTimeout={200}>
+                        {!!imageData && (
+                            <div className="images-wrapper">
+                                <div className="mr-3">
+                                    <CircularImage size={128} src={imageData} />
+                                </div>
+                                <i className="fas fa-arrow-right fa-2x" />
+                                <div className="ml-3">
+                                    <SVGTemplate
+                                        id="final-image-svg"
+                                        text={text}
+                                        textColor="#fff"
+                                        semiCircleColor={semiCircleColor}
+                                        imageData={imageData}
+                                        showRounded={true}
+                                    />
+                                </div>
+                            </div>
+                        )}
+                    </CSSTransitionGroup>
+                    {!imageData && (
+                        <i className="fas fa-spinner fa-3x fa-spin" />
+                    )}
                 </div>
                 <div className="login-buttons mt-3">
                     {/* <FacebookLogin tag="div" handleSocialLogin={handleLogin}>

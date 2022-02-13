@@ -10,11 +10,13 @@ import {
 import ColorPicker from 'components/ColorPicker'
 import CircularImage from 'components/CircularImage'
 import ImageEditor from 'components/ImageEditor'
+import { MatomoContext } from 'context/Matomo'
 
 import { fetchProfileImageURL, uploadProfileImage } from 'api/hashtag'
 
 import s from './HashtagSection.module.scss'
 import SVGTemplate from './SVGTemplate.js'
+import { HASHTAGS } from './hashtags'
 
 function getScalingFactors(context, image, provider) {
     var x
@@ -124,6 +126,8 @@ function dataURLtoBlob(dataURL) {
 }
 
 class HashtagSection extends Component {
+    static contextType = MatomoContext
+
     state = {
         previewImage: '',
         croppedImage: '',
@@ -230,9 +234,16 @@ class HashtagSection extends Component {
             )
             .then((response) => {
                 this.setState({ isUploading: false })
-                provider === 'facebook'
-                    ? this.openFBShare(response.data.url)
-                    : this.openSuccessDialog(provider)
+                if (provider === 'facebook') {
+                    this.openFBShare(response.data.url)
+                } else {
+                    this.context.trackEvent({
+                        category: 'ProfileImage',
+                        action: 'Upload',
+                        name: `Twitter username: ${response.data.user} Hashtag image uid: ${response.data.hashtag_image_uid}`,
+                    })
+                    this.openSuccessDialog(provider)
+                }
             })
             .catch((err) => {
                 this.setState({ isUploading: false })
@@ -292,20 +303,6 @@ class HashtagSection extends Component {
             svgText,
         } = this.state
 
-        const hashTags = [
-            '#UBI',
-            '#IncomeMarch',
-            '#UniversalBasicIncome',
-            '#FreedomDividend',
-            '#CitizensDividend',
-            '#LivableIncome',
-            '#GuaranteedLivableIncome',
-            '#SocialIncome',
-            '#CitizensIncome',
-            '#BIG',
-            '#BasicIncomeGuarantee',
-        ]
-
         return (
             <div className={cx}>
                 <h2 className="app-name"> HASHTAG APP</h2>
@@ -326,7 +323,7 @@ class HashtagSection extends Component {
                                 }>
                                 #BasicIncome
                             </DropdownItem>
-                            {hashTags.sort().map((x, i) => (
+                            {HASHTAGS.sort().map((x, i) => (
                                 <DropdownItem
                                     key={i}
                                     onClick={() => this.onChangeSVGText(x)}>

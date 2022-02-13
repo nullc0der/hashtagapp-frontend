@@ -1,12 +1,12 @@
 @import 'ui-framework/ui';
 
 :local(.container) {
-    color: rgba($dark, 0.7);
     height: calc(100vh - 80px);
     display: flex;
     flex-direction: column;
     justify-content: center;
     .app-name {
+        color: rgba($dark, 0.7);
         &:after {
             content: '';
             border-bottom: 2px solid rgba($dark, 0.7);
@@ -16,15 +16,24 @@
         }
     }
     .app-demo {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        .demo-image {
-            width: 128px;
-            height: 128px;
+        .images-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        i {
-            font-size: 20px;
+        .demo-fade-enter {
+            transform: scale(0.1);
+            &.demo-fade-enter-active {
+                transform: scale(1);
+                transition: all 300ms ease-in;
+            }
+        }
+        .demo-fade-leave {
+            opacity: 1;
+            &.demo-fade-leave-active {
+                opacity: 0.01;
+                transition: opacity 200ms ease-in;
+            }
         }
     }
     .login-buttons {

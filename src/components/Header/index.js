@@ -13,7 +13,7 @@ class Header extends Component {
         return (
             <div className={cx}>
                 <div className="container">
-                    <div className="d-flex align-items-center justify-content-around">
+                    <div className="d-flex align-items-center justify-content-between justify-content-sm-around">
                         <a
                             href="https://baza.foundation/"
                             className="header-logo">
@@ -22,7 +22,9 @@ class Header extends Component {
                                 alt="Baza Foundation Logo"
                                 src={logo}
                             />
-                            <p className="logo-text">BAZA FOUNDATION</p>
+                            <p className="logo-text d-none d-sm-block">
+                                BAZA FOUNDATION
+                            </p>
                         </a>
                         <div className="header-buttons">
                             <div className="join-button">

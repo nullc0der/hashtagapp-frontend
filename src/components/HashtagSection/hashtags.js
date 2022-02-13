@@ -1,0 +1,16 @@
+export const HASHTAGS = [
+    '#UBI',
+    '#IncomeMarch',
+    '#UniversalBasicIncome',
+    '#FreedomDividend',
+    '#CitizensDividend',
+    '#LivableIncome',
+    '#GuaranteedLivableIncome',
+    '#SocialIncome',
+    '#CitizensIncome',
+    '#BIG',
+    '#BasicIncomeGuarantee',
+    '#RentaBásica',
+    '#Grundeinkomme',
+    '#BGE',
+]

@@ -1,17 +1,12 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import classnames from 'classnames'
-import { CSSTransition } from 'react-transition-group'
 
 import isBoolean from 'lodash/isBoolean'
 
 import s from './Dialog.module.scss'
 
 export default class Dialog extends Component {
-    state = {
-        transitionIn: false
-    }
-
     componentDidMount = () => {
         if (this.props.isOpen) {
             this.toggleTransition()
@@ -52,9 +47,6 @@ export default class Dialog extends Component {
 
     onRequestClose = () => {
         if (typeof this.props.onRequestClose === 'function') {
-            this.setState({
-                transitionIn: false
-            })
             this.dialogClosetimeOut = setTimeout(() => {
                 this.props.onRequestClose()
                 this.toggleBodyScroll(false)
@@ -62,13 +54,13 @@ export default class Dialog extends Component {
         }
     }
 
-    closeOnEscapeKey = e => {
+    closeOnEscapeKey = (e) => {
         if (e.which === 27) {
             this.onRequestClose()
         }
     }
 
-    toggleBodyScroll = force => {
+    toggleBodyScroll = (force) => {
         if (isBoolean(force)) {
             return document.body.classList.toggle('modal-open', force)
         }
@@ -78,17 +70,11 @@ export default class Dialog extends Component {
             : document.body.classList.add('modal-open')
     }
 
-    handleClickOutside = e => {
+    handleClickOutside = (e) => {
         if (this.modalContent.contains(e.target)) {
             return
         }
         this.onRequestClose()
-    }
-
-    toggleTransition = () => {
-        this.setState({
-            transitionIn: !this.state.transitionIn
-        })
     }
 
     render() {
@@ -98,19 +84,17 @@ export default class Dialog extends Component {
             title,
             footer,
             showClose = true,
-            hideModalContent = false
+            hideModalContent = false,
         } = this.props
 
-        const { transitionIn } = this.state
-
         const cx = classnames(s.container, 'ui-dialog modal', className, {
-            show: isOpen
+            show: isOpen,
         })
         // const backdropClass = classnames('modal-backdrop', {
         //     show: isOpen
         // })
         const modalContentClass = classnames('modal-content', {
-            hide: hideModalContent
+            hide: hideModalContent,
         })
 
         const modalMarkup = (
@@ -120,46 +104,32 @@ export default class Dialog extends Component {
                 role="dialog"
                 aria-labelledby="userLoginModal"
                 aria-hidden="true">
-                <CSSTransition
-                    classNames={{
-                        enter: 'animated',
-                        enterActive: 'fadeInDown',
-                        exit: 'animated',
-                        exitActive: 'fadeOutUp'
-                    }}
-                    timeout={700}
-                    in={transitionIn}
-                    mountOnEnter
-                    unmountOnExit>
+                <div
+                    className="modal-dialog modal-dialog-centered"
+                    role="document">
                     <div
-                        className="modal-dialog modal-dialog-centered"
-                        role="document">
-                        <div
-                            className={modalContentClass}
-                            ref={node => (this.modalContent = node)}>
-                            <div className="modal-header">
-                                {!!title && (
-                                    <h5 className="modal-title"> {title} </h5>
-                                )}
-                                {!!showClose && (
-                                    <button
-                                        type="button"
-                                        className="close"
-                                        aria-label="Close"
-                                        onClick={this.onRequestClose}>
-                                        <i className="fas fa-times" />
-                                    </button>
-                                )}
-                            </div>
-                            <div className="modal-body">
-                                {this.props.children}
-                            </div>
-                            {!!footer && (
-                                <div className="modal-footer">{footer}</div>
+                        className={modalContentClass}
+                        ref={(node) => (this.modalContent = node)}>
+                        <div className="modal-header">
+                            {!!title && (
+                                <h5 className="modal-title"> {title} </h5>
+                            )}
+                            {!!showClose && (
+                                <button
+                                    type="button"
+                                    className="close"
+                                    aria-label="Close"
+                                    onClick={this.onRequestClose}>
+                                    <i className="fas fa-times" />
+                                </button>
                             )}
                         </div>
+                        <div className="modal-body">{this.props.children}</div>
+                        {!!footer && (
+                            <div className="modal-footer">{footer}</div>
+                        )}
                     </div>
-                </CSSTransition>
+                </div>
             </div>
         )
 
