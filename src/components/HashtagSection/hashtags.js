@@ -11,7 +11,7 @@ export const HASHTAGS = [
     '#BIG',
     '#BasicIncomeGuarantee',
     '#RentaBásica',
-    '#Grundeinkomme',
+    '#Grundeinkommen',
     '#BGE',
     '#ベーシックインカム',
 ]
