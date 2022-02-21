@@ -97,7 +97,7 @@ const SVGTemplate = ({
                 <text
                     fill={textColor}
                     fontWeight="600"
-                    fontSize="16px"
+                    fontSize={text.length < 22 ? '16px' : '15px'}
                     fontFamily="Arial, Helvetica, sans-serif">
                     <textPath
                         xlinkHref="#curvedText"

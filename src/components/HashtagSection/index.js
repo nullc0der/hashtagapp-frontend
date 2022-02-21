@@ -155,6 +155,11 @@ class HashtagSection extends Component {
 
         getFinalImagePNG(this.props.provider)
             .then((data) => {
+                this.context.trackEvent({
+                    category: 'HashtagImage',
+                    action: 'Download',
+                    name: '',
+                })
                 downloadAs('hashtag-image.png', data)
             })
             .catch((err) => {
@@ -168,6 +173,11 @@ class HashtagSection extends Component {
 
         this.setState({ previewImage: '' })
         reader.onloadend = () => {
+            this.context.trackEvent({
+                category: 'HashtagImage',
+                action: 'Manual Upload',
+                name: '',
+            })
             this.setState({ previewImage: reader.result, showCropper: true })
         }
 
@@ -190,6 +200,11 @@ class HashtagSection extends Component {
     }
 
     handleImageLoadSuccess = (imageUrl) => {
+        this.context.trackEvent({
+            category: 'HashtagImage',
+            action: 'Load from social',
+            name: '',
+        })
         this.setState({
             isDownloading: false,
             previewImage: imageUrl,
@@ -206,18 +221,33 @@ class HashtagSection extends Component {
 
     onCropperClose = () => {
         document.querySelector('.input-file[type="file"]').value = ''
+        this.context.trackEvent({
+            category: 'HashtagImage',
+            action: 'Edit dialog close',
+            name: '',
+        })
         this.setState({ showCropper: false, previewImage: '' })
     }
 
     onSemiCircleColorChange = (color) => {
         const c = color.rgb
         const semiCircleColor = `rgba(${c.r}, ${c.g}, ${c.b}, ${c.a})`
+        this.context.trackEvent({
+            category: 'HashtagImage',
+            action: 'Circle color changed',
+            name: '',
+        })
         this.setState({ semiCircleColor })
     }
 
     onTextColorChange = (color) => {
         const c = color.rgb
         const textColor = `rgba(${c.r}, ${c.g}, ${c.b}, ${c.a})`
+        this.context.trackEvent({
+            category: 'HashtagImage',
+            action: 'Text color changed',
+            name: '',
+        })
         this.setState({ textColor })
     }
 
@@ -276,6 +306,11 @@ class HashtagSection extends Component {
     }
 
     onChangeSVGText = (text) => {
+        this.context.trackEvent({
+            category: 'HashtagImage',
+            action: 'Text change',
+            name: `${text}`,
+        })
         this.setState({
             svgText: text,
         })
@@ -305,7 +340,7 @@ class HashtagSection extends Component {
 
         return (
             <div className={cx}>
-                <h2 className="app-name"> HASHTAG APP</h2>
+                <h2 className="app-name">UBI HASHTAG APP</h2>
                 <div className="actions mt-2 mt-md-4">
                     <Dropdown
                         isOpen={svgTextDropdownOpen}

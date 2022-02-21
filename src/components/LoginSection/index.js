@@ -92,7 +92,7 @@ class LoginSection extends Component {
 
         return (
             <div className={cx}>
-                <h2 className="app-name">HASHTAG APP</h2>
+                <h2 className="app-name">UBI HASHTAG APP</h2>
                 <div className="app-demo mt-5">
                     <CSSTransitionGroup
                         component={React.Fragment}
