@@ -11,6 +11,7 @@ import ColorPicker from 'components/ColorPicker'
 import CircularImage from 'components/CircularImage'
 import ImageEditor from 'components/ImageEditor'
 import { MatomoContext } from 'context/Matomo'
+import EmojiPicker from 'components/EmojiPicker'
 
 import { fetchProfileImageURL, uploadProfileImage } from 'api/hashtag'
 
@@ -137,7 +138,12 @@ class HashtagSection extends Component {
         showBGColorPicker: false,
         showTextColorPicker: false,
         svgTextDropdownOpen: false,
+        selectedSvgText: '#BasicIncome',
         svgText: '#BasicIncome',
+        showEmojiPicker: false,
+        selectedEmojis: [],
+        selectedCountry: null,
+        showCountryPicker: false,
     }
 
     componentDidMount = () => {
@@ -312,7 +318,65 @@ class HashtagSection extends Component {
             name: `${text}`,
         })
         this.setState({
+            selectedSvgText: text,
             svgText: text,
+            selectedEmojis: [],
+            selectedCountry: null,
+        })
+    }
+
+    addEmojiToSVGText = () => {
+        let emojiTexts = ''
+        for (const selectedEmoji of this.state.selectedEmojis) {
+            emojiTexts += `${selectedEmoji.emoji} `
+        }
+        let svgText = `${emojiTexts}${this.state.selectedSvgText}`
+        if (this.state.selectedCountry) {
+            svgText = `${svgText} ${this.state.selectedCountry.emoji}`
+        }
+        this.setState({
+            svgText,
+        })
+    }
+
+    onEmojiSelect = (_, emojiObject) => {
+        this.context.trackEvent({
+            category: 'HashtagImage',
+            action: 'Added Emoji',
+            name: '',
+        })
+        const selectedEmojis = this.state.selectedEmojis
+        if (selectedEmojis.length < 3) {
+            selectedEmojis.push(emojiObject)
+        } else {
+            selectedEmojis[2] = emojiObject
+        }
+        this.setState(
+            {
+                showEmojiPicker: false,
+                selectedEmojis,
+            },
+            () => this.addEmojiToSVGText()
+        )
+    }
+
+    onCountrySelect = (_, emojiObject) => {
+        this.context.trackEvent({
+            category: 'HashtagImage',
+            action: 'Added Country Flag',
+            name: '',
+        })
+        let svgText = this.state.svgText
+        if (this.state.selectedCountry) {
+            svgText = svgText.slice(0, svgText.length - 4)
+            svgText = `${svgText} ${emojiObject.emoji}`
+        } else {
+            svgText = `${svgText} ${emojiObject.emoji}`
+        }
+        this.setState({
+            svgText,
+            showCountryPicker: false,
+            selectedCountry: emojiObject,
         })
     }
 
@@ -335,7 +399,10 @@ class HashtagSection extends Component {
             isDownloading,
             isUploading,
             svgTextDropdownOpen,
+            selectedSvgText,
             svgText,
+            showEmojiPicker,
+            showCountryPicker,
         } = this.state
 
         return (
@@ -348,7 +415,7 @@ class HashtagSection extends Component {
                         <DropdownToggle
                             caret
                             className="dropdown-toggle btn btn-light">
-                            {svgText}
+                            {selectedSvgText}
                         </DropdownToggle>
                         <DropdownMenu right>
                             {/* This should be always the first item */}
@@ -501,6 +568,93 @@ class HashtagSection extends Component {
                                     />
                                 )}
                             </div>
+                        </div>
+                    </React.Fragment>
+                )}
+                {!!uid ? (
+                    <React.Fragment>
+                        <div className="actions mt-1 mt-md-2">
+                            <div
+                                className="btn btn-light"
+                                onClick={() =>
+                                    this.setState({ showEmojiPicker: true })
+                                }>
+                                Add emoji
+                                <i className="far fa-smile" />
+                            </div>
+                            {showEmojiPicker && (
+                                <EmojiPicker
+                                    onEmojiClick={this.onEmojiSelect}
+                                    onClosePicker={() =>
+                                        this.setState({
+                                            showEmojiPicker: false,
+                                        })
+                                    }
+                                />
+                            )}
+                            <div
+                                className="btn btn-light mt-1 mt-md-0"
+                                onClick={() =>
+                                    this.setState({ showCountryPicker: true })
+                                }>
+                                Add country flag
+                                <i className="fas fa-flag" />
+                            </div>
+                            {showCountryPicker && (
+                                <EmojiPicker
+                                    onEmojiClick={this.onCountrySelect}
+                                    flagsOnly={true}
+                                    onClosePicker={() =>
+                                        this.setState({
+                                            showCountryPicker: false,
+                                        })
+                                    }
+                                />
+                            )}
+                        </div>
+                    </React.Fragment>
+                ) : (
+                    <React.Fragment>
+                        <div className="actions mt-1 mt-md-2">
+                            <div
+                                className="btn btn-light"
+                                onClick={() =>
+                                    this.setState({ showEmojiPicker: true })
+                                }>
+                                Add emoji
+                                <i className="far fa-smile" />
+                            </div>
+                            {showEmojiPicker && (
+                                <EmojiPicker
+                                    onEmojiClick={this.onEmojiSelect}
+                                    onClosePicker={() =>
+                                        this.setState({
+                                            showEmojiPicker: false,
+                                        })
+                                    }
+                                />
+                            )}
+                        </div>
+                        <div className="actions mt-1 mt-md-2">
+                            <div
+                                className="btn btn-light"
+                                onClick={() =>
+                                    this.setState({ showCountryPicker: true })
+                                }>
+                                Add country flag
+                                <i className="fas fa-flag" />
+                            </div>
+                            {showCountryPicker && (
+                                <EmojiPicker
+                                    onEmojiClick={this.onCountrySelect}
+                                    flagsOnly={true}
+                                    onClosePicker={() =>
+                                        this.setState({
+                                            showCountryPicker: false,
+                                        })
+                                    }
+                                />
+                            )}
                         </div>
                     </React.Fragment>
                 )}

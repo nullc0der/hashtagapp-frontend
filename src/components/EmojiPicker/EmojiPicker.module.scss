@@ -1,0 +1,27 @@
+@import 'ui-framework/ui';
+
+:local(.container) {
+    position: absolute;
+    z-index: 1;
+    aside {
+        &.emoji-picker-react {
+            .content-wrapper {
+                &::before {
+                    top: 15px;
+                    left: 15px;
+                    right: unset;
+                    color: $dark;
+                    text-align: left;
+                    max-width: fit-content;
+                }
+            }
+            .emoji-group {
+                &::before {
+                    text-align: left;
+                    color: $dark;
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+}
