@@ -6,6 +6,7 @@ import {
     DropdownMenu,
     DropdownItem,
 } from 'reactstrap'
+import FileSaver from 'file-saver'
 
 import ColorPicker from 'components/ColorPicker'
 import CircularImage from 'components/CircularImage'
@@ -166,7 +167,8 @@ class HashtagSection extends Component {
                     action: 'Download',
                     name: '',
                 })
-                downloadAs('hashtag-image.png', data)
+                //downloadAs('hashtag-image.png', data)
+                FileSaver.saveAs(data, 'hashtag-image.png')
             })
             .catch((err) => {
                 alert(err.message)
@@ -367,11 +369,16 @@ class HashtagSection extends Component {
             name: '',
         })
         let svgText = this.state.svgText
+        const emojiText = emojiObject.unified
+            .split('-')
+            .map((hex) => parseInt(hex, 16))
+            .map((hex) => String.fromCodePoint(hex))
+            .join('')
         if (this.state.selectedCountry) {
             svgText = svgText.slice(0, svgText.length - 4)
-            svgText = `${svgText} ${emojiObject.emoji}`
+            svgText = `${svgText} ${emojiText}`
         } else {
-            svgText = `${svgText} ${emojiObject.emoji}`
+            svgText = `${svgText} ${emojiText}`
         }
         this.setState({
             svgText,
