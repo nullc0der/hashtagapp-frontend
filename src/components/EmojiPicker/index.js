@@ -51,7 +51,6 @@ const EmojiPicker = ({ flagsOnly, onEmojiClick, onClosePicker }) => {
             <Picker
                 onEmojiClick={onEmojiClick}
                 groupVisibility={groupVisibility}
-                native
             />
         </div>
     )

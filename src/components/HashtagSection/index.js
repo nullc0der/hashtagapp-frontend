@@ -6,7 +6,6 @@ import {
     DropdownMenu,
     DropdownItem,
 } from 'reactstrap'
-import FileSaver from 'file-saver'
 
 import ColorPicker from 'components/ColorPicker'
 import CircularImage from 'components/CircularImage'
@@ -14,61 +13,15 @@ import ImageEditor from 'components/ImageEditor'
 import { MatomoContext } from 'context/Matomo'
 import EmojiPicker from 'components/EmojiPicker'
 
-import { fetchProfileImageURL, uploadProfileImage } from 'api/hashtag'
+import {
+    fetchProfileImageURL,
+    uploadProfileImage,
+    downloadImage,
+} from 'api/hashtag'
 
 import s from './HashtagSection.module.scss'
 import SVGTemplate from './SVGTemplate.js'
 import { HASHTAGS } from './hashtags'
-
-function getScalingFactors(context, image, provider) {
-    var x
-    var y
-    if (provider === 'facebook' || provider === 'manual') {
-        x = 600
-        y = 600
-    } else if (provider === 'twitter') {
-        x = 400
-        y = 400
-    } else {
-        throw new Error(
-            `Unknown provider. Cannot get scaling: ` + provider.name
-        )
-    }
-
-    var scaleX = x / image.naturalWidth
-    var scaleY = y / image.naturalHeight
-
-    return { scaleX, scaleY }
-}
-
-function getFinalImagePNG(provider) {
-    const svg = document.getElementById('final-image-svg')
-    const svgStr = new XMLSerializer().serializeToString(svg)
-    const canvas = document.createElement('canvas')
-    const ctx = canvas.getContext('2d')
-
-    canvas.width = 128
-    canvas.height = 128
-
-    const img = new Image()
-
-    return new Promise((resolve, reject) => {
-        var url = `data:image/svg+xml;base64,${btoa(
-            unescape(encodeURIComponent(svgStr))
-        )}`
-        img.onload = function () {
-            let { scaleX, scaleY } = getScalingFactors(ctx, img, provider)
-            canvas.width = canvas.width * scaleX
-            canvas.height = canvas.height * scaleY
-            ctx.scale(scaleX, scaleY) // Scale canvas
-            ctx.drawImage(img, 0, 0) // Draw the scaled image
-            let finalImage = canvas.toDataURL('image/png')
-            resolve(finalImage)
-        }
-
-        img.src = url
-    })
-}
 
 function downloadAs(filename, data) {
     const el = document.createElement('a')
@@ -108,24 +61,17 @@ function imageToDataURL(imageSrc) {
     })
 }
 
-function dataURLtoBlob(dataURL) {
-    // convert base64 to raw binary data held in a string
-    var byteString = atob(dataURL.split(',')[1])
+const fetchAsBlob = (url) => fetch(url).then((response) => response.blob())
 
-    // separate out the mime component
-    var mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0]
-
-    // write the bytes of the string to an ArrayBuffer
-    var arrayBuffer = new ArrayBuffer(byteString.length)
-    var _ia = new Uint8Array(arrayBuffer)
-    for (var i = 0; i < byteString.length; i++) {
-        _ia[i] = byteString.charCodeAt(i)
-    }
-
-    var dataView = new DataView(arrayBuffer)
-    var blob = new Blob([dataView], { type: mimeString })
-    return blob
-}
+const convertBlobToBase64 = (blob) =>
+    new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.onerror = reject
+        reader.onload = () => {
+            resolve(reader.result)
+        }
+        reader.readAsDataURL(blob)
+    })
 
 class HashtagSection extends Component {
     static contextType = MatomoContext
@@ -140,11 +86,11 @@ class HashtagSection extends Component {
         showTextColorPicker: false,
         svgTextDropdownOpen: false,
         selectedSvgText: '#BasicIncome',
-        svgText: '#BasicIncome',
         showEmojiPicker: false,
-        selectedEmojis: [],
-        selectedCountry: null,
+        selectedEmojiImage: '',
+        selectedCountryImage: '',
         showCountryPicker: false,
+        downloadingPNG: false,
     }
 
     componentDidMount = () => {
@@ -154,25 +100,24 @@ class HashtagSection extends Component {
         }
     }
 
-    downloadImage = () => {
+    onClickDownloadImage = () => {
         const { croppedImage } = this.state
         if (!croppedImage) {
             return
         }
-
-        getFinalImagePNG(this.props.provider)
-            .then((data) => {
-                this.context.trackEvent({
-                    category: 'HashtagImage',
-                    action: 'Download',
-                    name: '',
+        this.setState({
+            downloadingPNG: true,
+        })
+        const svg = document.getElementById('final-image-svg')
+        const svgStr = new XMLSerializer().serializeToString(svg)
+        downloadImage(svgStr).then((response) => {
+            if (response.ok) {
+                this.setState({
+                    downloadingPNG: false,
                 })
-                //downloadAs('hashtag-image.png', data)
-                FileSaver.saveAs(data, 'hashtag-image.png')
-            })
-            .catch((err) => {
-                alert(err.message)
-            })
+                downloadAs('hashtag-image.png', response.data.img)
+            }
+        })
     }
 
     onImageUpload = (e) => {
@@ -266,10 +211,9 @@ class HashtagSection extends Component {
             return
         }
         this.setState({ isUploading: true })
-        getFinalImagePNG(provider)
-            .then((dataUrl) =>
-                uploadProfileImage(provider, dataURLtoBlob(dataUrl), uid)
-            )
+        const svg = document.getElementById('final-image-svg')
+        const svgStr = new XMLSerializer().serializeToString(svg)
+        uploadProfileImage(provider, svgStr, uid)
             .then((response) => {
                 this.setState({ isUploading: false })
                 if (provider === 'facebook') {
@@ -321,23 +265,6 @@ class HashtagSection extends Component {
         })
         this.setState({
             selectedSvgText: text,
-            svgText: text,
-            selectedEmojis: [],
-            selectedCountry: null,
-        })
-    }
-
-    addEmojiToSVGText = () => {
-        let emojiTexts = ''
-        for (const selectedEmoji of this.state.selectedEmojis) {
-            emojiTexts += `${selectedEmoji.emoji} `
-        }
-        let svgText = `${emojiTexts}${this.state.selectedSvgText}`
-        if (this.state.selectedCountry) {
-            svgText = `${svgText} ${this.state.selectedCountry.emoji}`
-        }
-        this.setState({
-            svgText,
         })
     }
 
@@ -347,19 +274,16 @@ class HashtagSection extends Component {
             action: 'Added Emoji',
             name: '',
         })
-        const selectedEmojis = this.state.selectedEmojis
-        if (selectedEmojis.length < 3) {
-            selectedEmojis.push(emojiObject)
-        } else {
-            selectedEmojis[2] = emojiObject
-        }
-        this.setState(
-            {
-                showEmojiPicker: false,
-                selectedEmojis,
-            },
-            () => this.addEmojiToSVGText()
+        fetchAsBlob(
+            `https://cdn.jsdelivr.net/npm/emoji-datasource-apple@6.0.1/img/apple/64/${emojiObject.unified}.png`
         )
+            .then(convertBlobToBase64)
+            .then((result) => {
+                this.setState({
+                    showEmojiPicker: false,
+                    selectedEmojiImage: result,
+                })
+            })
     }
 
     onCountrySelect = (_, emojiObject) => {
@@ -368,23 +292,16 @@ class HashtagSection extends Component {
             action: 'Added Country Flag',
             name: '',
         })
-        let svgText = this.state.svgText
-        const emojiText = emojiObject.unified
-            .split('-')
-            .map((hex) => parseInt(hex, 16))
-            .map((hex) => String.fromCodePoint(hex))
-            .join('')
-        if (this.state.selectedCountry) {
-            svgText = svgText.slice(0, svgText.length - 4)
-            svgText = `${svgText} ${emojiText}`
-        } else {
-            svgText = `${svgText} ${emojiText}`
-        }
-        this.setState({
-            svgText,
-            showCountryPicker: false,
-            selectedCountry: emojiObject,
-        })
+        fetchAsBlob(
+            `https://cdn.jsdelivr.net/npm/emoji-datasource-apple@6.0.1/img/apple/64/${emojiObject.unified}.png`
+        )
+            .then(convertBlobToBase64)
+            .then((result) =>
+                this.setState({
+                    showCountryPicker: false,
+                    selectedCountryImage: result,
+                })
+            )
     }
 
     render() {
@@ -407,9 +324,11 @@ class HashtagSection extends Component {
             isUploading,
             svgTextDropdownOpen,
             selectedSvgText,
-            svgText,
             showEmojiPicker,
             showCountryPicker,
+            selectedCountryImage,
+            selectedEmojiImage,
+            downloadingPNG,
         } = this.state
 
         return (
@@ -457,10 +376,12 @@ class HashtagSection extends Component {
                     </div>
                     <SVGTemplate
                         id="final-image-svg"
-                        text={svgText}
+                        text={selectedSvgText}
                         textColor={textColor}
                         semiCircleColor={semiCircleColor}
                         imageData={croppedImage}
+                        countryImage={selectedCountryImage}
+                        emojiImage={selectedEmojiImage}
                     />
                 </div>
                 <div className="actions mt-2">
@@ -668,9 +589,12 @@ class HashtagSection extends Component {
                 <div className="final-actions actions mt-1 mt-md-2">
                     <div
                         className="btn btn-dark btn-download"
-                        onClick={this.downloadImage}>
+                        onClick={this.onClickDownloadImage}>
                         Download Image
                         <i className="fas fa-arrow-down" />
+                        {downloadingPNG && (
+                            <i className={`fas fa-spinner fa-pulse fa-fw`} />
+                        )}
                     </div>
                     {!!uid && (
                         <div
