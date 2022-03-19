@@ -101,10 +101,6 @@ class HashtagSection extends Component {
     }
 
     onClickDownloadImage = () => {
-        const { croppedImage } = this.state
-        if (!croppedImage) {
-            return
-        }
         this.setState({
             downloadingPNG: true,
         })
@@ -206,10 +202,6 @@ class HashtagSection extends Component {
 
     uploadImageToSocial = () => {
         const { provider, uid } = this.props
-        const { croppedImage } = this.state
-        if (!croppedImage) {
-            return
-        }
         this.setState({ isUploading: true })
         const svg = document.getElementById('final-image-svg')
         const svgStr = new XMLSerializer().serializeToString(svg)
@@ -513,6 +505,7 @@ class HashtagSection extends Component {
                             {showEmojiPicker && (
                                 <EmojiPicker
                                     onEmojiClick={this.onEmojiSelect}
+                                    show={showEmojiPicker}
                                     onClosePicker={() =>
                                         this.setState({
                                             showEmojiPicker: false,
@@ -532,6 +525,7 @@ class HashtagSection extends Component {
                                 <EmojiPicker
                                     onEmojiClick={this.onCountrySelect}
                                     flagsOnly={true}
+                                    show={showCountryPicker}
                                     onClosePicker={() =>
                                         this.setState({
                                             showCountryPicker: false,

@@ -20,8 +20,8 @@ const SVGTemplate = ({
                 text.length - 1
             )
             const rotation = textRef.current.getRotationOfChar(text.length - 1)
-            flagImgRef.current.setAttribute('x', x + 2)
-            flagImgRef.current.setAttribute('y', y - 14)
+            flagImgRef.current.setAttribute('x', x)
+            flagImgRef.current.setAttribute('y', y - 13)
             flagImgRef.current.setAttribute('href', countryImage)
             flagImgRef.current.setAttribute('xlink:href', countryImage)
             flagImgRef.current.setAttribute(
@@ -43,8 +43,8 @@ const SVGTemplate = ({
             emojiImageEl.setAttribute('xlink:href', emojiImage)
             emojiImageEl.setAttribute('width', 14)
             emojiImageEl.setAttribute('height', 14)
-            emojiImageEl.setAttribute('x', x - 18)
-            emojiImageEl.setAttribute('y', y - 16)
+            emojiImageEl.setAttribute('x', x - 14)
+            emojiImageEl.setAttribute('y', y - 14)
             emojiImageEl.setAttribute(
                 'transform',
                 `rotate(${rotation} ${x} ${y})`
@@ -93,9 +93,13 @@ const SVGTemplate = ({
                 <g
                     id="ImageTemplate"
                     transform="translate(0.000000, -0.200000)">
-                    {showRounded ? (
-                        <foreignObject x="0" y="0" width="128px" height="128px">
-                            {!!imageData.length && (
+                    {imageData.length ? (
+                        showRounded ? (
+                            <foreignObject
+                                x="0"
+                                y="0"
+                                width="128px"
+                                height="128px">
                                 <img
                                     width="128px"
                                     height="128px"
@@ -106,18 +110,20 @@ const SVGTemplate = ({
                                     }}
                                     alt=""
                                 />
-                            )}
-                        </foreignObject>
+                            </foreignObject>
+                        ) : (
+                            <image
+                                id="Bitmap"
+                                x="0"
+                                y="0"
+                                width="128"
+                                height="128"
+                                href={imageData}
+                                xlinkHref={imageData}
+                            />
+                        )
                     ) : (
-                        <image
-                            id="Bitmap"
-                            x="0"
-                            y="0"
-                            width="128"
-                            height="128"
-                            href={imageData}
-                            xlinkHref={imageData}
-                        />
+                        <circle cx={64} cy={64} r={64} fill="#e9ebed" />
                     )}
                     <g
                         id="outerContainer"
