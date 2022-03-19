@@ -16,7 +16,7 @@ const EmojiPicker = ({ flagsOnly, onEmojiClick, onClosePicker }) => {
               activities: true,
               objects: true,
               symbols: true,
-              flags: true,
+              flags: false,
               recently_used: false,
           }
         : {
