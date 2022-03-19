@@ -8,7 +8,7 @@ export const fetchProfileImageURL = (provider, uid) => {
 export const uploadProfileImage = (provider, svgStr, uid) => {
     const url = '/hashtag/uploadimage/'
     return jsonAPI((api) =>
-        api.post(url, { provider, uid, svg: window.encodeURIComponent(svgStr) })
+        api.post(url, { provider, uid, svg: window.btoa(svgStr) })
     )
 }
 
@@ -19,7 +19,5 @@ export const getNonExistentPhoto = () => {
 
 export const downloadImage = (svgStr) => {
     const url = '/hashtag/downloadimage/'
-    return jsonAPI((api) =>
-        api.post(url, { svg: window.encodeURIComponent(svgStr) })
-    )
+    return jsonAPI((api) => api.post(url, { svg: window.btoa(svgStr) }))
 }
