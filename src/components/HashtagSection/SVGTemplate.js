@@ -147,8 +147,11 @@ const SVGTemplate = ({
                         fillRule="nonzero"
                     />
                     <g id="emojis" ref={emojisRef}></g>
-                    <text fill={textColor} fontWeight="600" fontSize="14px">
-                        {/* fontFamily="Arial, Helvetica, sans-serif"> */}
+                    <text
+                        fill={textColor}
+                        fontWeight="600"
+                        fontSize="14px"
+                        fontFamily="Arial, Helvetica, sans-serif">
                         <textPath
                             ref={textRef}
                             xlinkHref="#curvedText"
