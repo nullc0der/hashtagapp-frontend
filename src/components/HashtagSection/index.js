@@ -6,6 +6,7 @@ import {
     DropdownMenu,
     DropdownItem,
 } from 'reactstrap'
+import { saveAs } from 'file-saver'
 
 import ColorPicker from 'components/ColorPicker'
 import CircularImage from 'components/CircularImage'
@@ -23,20 +24,20 @@ import s from './HashtagSection.module.scss'
 import SVGTemplate from './SVGTemplate.js'
 import { HASHTAGS } from './hashtags'
 
-function downloadAs(filename, data) {
-    const el = document.createElement('a')
-    el.setAttribute('href', data)
-    el.setAttribute('download', filename)
+// function downloadAs(filename, data) {
+//     const el = document.createElement('a')
+//     el.setAttribute('href', data)
+//     el.setAttribute('download', filename)
 
-    el.style.display = 'none'
-    document.body.appendChild(el)
+//     el.style.display = 'none'
+//     document.body.appendChild(el)
 
-    el.click()
+//     el.click()
 
-    setTimeout(() => {
-        document.body.removeChild(el)
-    }, 500)
-}
+//     setTimeout(() => {
+//         document.body.removeChild(el)
+//     }, 500)
+// }
 
 function imageToDataURL(imageSrc) {
     const img = document.createElement('img')
@@ -111,7 +112,8 @@ class HashtagSection extends Component {
                 this.setState({
                     downloadingPNG: false,
                 })
-                downloadAs('hashtag-image.png', response.data.img)
+                // downloadAs('hashtag-image.png', response.data.img)
+                saveAs(response.data.img, 'hashtag-image.png')
             }
         })
     }

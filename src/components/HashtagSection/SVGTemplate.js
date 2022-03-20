@@ -161,7 +161,7 @@ const SVGTemplate = ({
                         <textPath
                             ref={textRef}
                             xlinkHref="#curvedText"
-                            startOffset="25%"
+                            startOffset="25.5%"
                             textAnchor="middle">
                             {text}
                         </textPath>
