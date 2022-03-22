@@ -181,25 +181,21 @@ class HashtagSection extends Component {
     }
 
     onSemiCircleColorChange = (color) => {
-        const c = color.rgb
-        const semiCircleColor = `rgba(${c.r}, ${c.g}, ${c.b}, ${c.a})`
         this.context.trackEvent({
             category: 'HashtagImage',
             action: 'Circle color changed',
             name: '',
         })
-        this.setState({ semiCircleColor })
+        this.setState({ semiCircleColor: color.hex })
     }
 
     onTextColorChange = (color) => {
-        const c = color.rgb
-        const textColor = `rgba(${c.r}, ${c.g}, ${c.b}, ${c.a})`
         this.context.trackEvent({
             category: 'HashtagImage',
             action: 'Text color changed',
             name: '',
         })
-        this.setState({ textColor })
+        this.setState({ textColor: color.hex })
     }
 
     uploadImageToSocial = () => {
