@@ -53,16 +53,16 @@ export default class EditImage extends Component {
         cropRounded: PropTypes.bool,
         onRequestClose: PropTypes.func.isRequired,
         onEditDone: PropTypes.func.isRequired,
-        src: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
+        src: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     }
 
     static defaultProps = {
-        cropRounded: false
+        cropRounded: false,
     }
 
     state = {
         editedImage: '',
-        imgReady: false
+        imgReady: false,
     }
 
     // componentDidMount = () => {
@@ -84,7 +84,7 @@ export default class EditImage extends Component {
             initialAspectRatio: 1,
             aspectRatio: 1,
             ready: this.beginCrop,
-            background: false
+            background: false,
         }
     }
 
@@ -94,10 +94,7 @@ export default class EditImage extends Component {
 
     onEditDone = () => {
         const { cropRounded } = this.props
-        const croppedCanvas = this.cropper.getCroppedCanvas({
-            maxWidth: 2000,
-            maxHeight: 2000
-        })
+        const croppedCanvas = this.cropper.getCroppedCanvas()
 
         const targetCanvas = cropRounded
             ? getRoundedCanvas(croppedCanvas)
@@ -110,7 +107,7 @@ export default class EditImage extends Component {
 
     setImageReady = () => {
         this.setState({
-            imgReady: true
+            imgReady: true,
         })
     }
 
@@ -230,7 +227,7 @@ export default class EditImage extends Component {
                 <div className="edit-image-inner">
                     <img
                         alt=""
-                        ref={node => (this.img = node)}
+                        ref={(node) => (this.img = node)}
                         className="image-to-edit"
                         src={src}
                         onLoad={this.setImageReady}

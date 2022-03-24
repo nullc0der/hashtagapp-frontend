@@ -1,4 +1,5 @@
 import { jsonAPI } from './base'
+import LZString from 'lz-string'
 
 export const fetchProfileImageURL = (provider, uid) => {
     const url = `/hashtag/downloadsocialimage?provider=${provider}&uid=${uid}`
@@ -11,7 +12,7 @@ export const uploadProfileImage = (provider, svgStr, uid) => {
         api.post(url, {
             provider,
             uid,
-            svg: Buffer.from(svgStr, 'utf8').toString('base64'),
+            svg: LZString.compressToBase64(svgStr),
         })
     )
 }
@@ -24,6 +25,6 @@ export const getNonExistentPhoto = () => {
 export const downloadImage = (svgStr) => {
     const url = '/hashtag/downloadimage/'
     return jsonAPI((api) =>
-        api.post(url, { svg: Buffer.from(svgStr, 'utf8').toString('base64') })
+        api.post(url, { svg: LZString.compressToBase64(svgStr) })
     )
 }

@@ -13,6 +13,7 @@ export const HASHTAGS = [
     '#RentaBásica',
     '#Grundeinkommen',
     '#BGE',
+    '#CryptoUBI',
     '#ベーシックインカム',
     '#БазовыйДоход',
     '#बुनियादी_कमाई',

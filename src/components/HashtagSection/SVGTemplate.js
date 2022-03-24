@@ -118,7 +118,6 @@ const SVGTemplate = ({
                                 y="0"
                                 width="128"
                                 height="128"
-                                href={imageData}
                                 xlinkHref={imageData}
                             />
                         )
@@ -161,7 +160,7 @@ const SVGTemplate = ({
                         <textPath
                             ref={textRef}
                             xlinkHref="#curvedText"
-                            startOffset="25.5%"
+                            startOffset="25%"
                             textAnchor="middle">
                             {text}
                         </textPath>
