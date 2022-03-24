@@ -94,7 +94,10 @@ export default class EditImage extends Component {
 
     onEditDone = () => {
         const { cropRounded } = this.props
-        const croppedCanvas = this.cropper.getCroppedCanvas()
+        const croppedCanvas = this.cropper.getCroppedCanvas({
+            maxWidth: 2000,
+            maxHeight: 2000,
+        })
 
         const targetCanvas = cropRounded
             ? getRoundedCanvas(croppedCanvas)

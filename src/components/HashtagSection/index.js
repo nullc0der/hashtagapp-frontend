@@ -105,17 +105,19 @@ class HashtagSection extends Component {
         this.setState({
             downloadingPNG: true,
         })
-        const svg = document.getElementById('final-image-svg')
-        const svgStr = new XMLSerializer().serializeToString(svg)
-        downloadImage(svgStr).then((response) => {
-            if (response.ok) {
-                this.setState({
-                    downloadingPNG: false,
-                })
-                // downloadAs('hashtag-image.png', response.data.img)
-                saveAs(response.data.img, 'hashtag-image.png')
-            }
-        })
+        setTimeout(() => {
+            const svg = document.getElementById('final-image-svg')
+            const svgStr = new XMLSerializer().serializeToString(svg)
+            downloadImage(svgStr).then((response) => {
+                if (response.ok) {
+                    this.setState({
+                        downloadingPNG: false,
+                    })
+                    // downloadAs('hashtag-image.png', response.data.img)
+                    saveAs(response.data.img, 'hashtag-image.png')
+                }
+            })
+        }, 500)
     }
 
     onImageUpload = (e) => {
