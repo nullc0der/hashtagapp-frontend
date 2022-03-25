@@ -584,10 +584,18 @@ class HashtagSection extends Component {
                     <div
                         className="btn btn-dark btn-download"
                         onClick={this.onClickDownloadImage}>
-                        Download Image
-                        <i className="fas fa-arrow-down" />
-                        {downloadingPNG && (
-                            <i className={`fas fa-spinner fa-pulse fa-fw`} />
+                        {!downloadingPNG ? (
+                            <>
+                                Download Image
+                                <i className="fas fa-arrow-down" />
+                            </>
+                        ) : (
+                            <>
+                                Please wait...
+                                <i
+                                    className={`fas fa-spinner fa-pulse fa-fw`}
+                                />
+                            </>
                         )}
                     </div>
                     {!!uid && (
